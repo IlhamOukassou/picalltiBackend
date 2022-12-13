@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "remove")
-    public void updateUser(@RequestParam int id){
+    public void removeUser(@RequestParam int id){
         userService.removeUserById(id);
     }
 
