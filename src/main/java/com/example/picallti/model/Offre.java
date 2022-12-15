@@ -10,15 +10,7 @@ import java.time.LocalTime;
 @Entity
 public class Offre {
     @Id
-    @SequenceGenerator(
-            name = "picallti_sequence",
-            sequenceName = "picallti_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "picallti_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer imageId;
     private String titre;
