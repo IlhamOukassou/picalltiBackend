@@ -11,15 +11,7 @@ import java.time.LocalTime;
 public class Notification {
 
     @Id
-    @SequenceGenerator(
-            name = "picallti_sequence",
-            sequenceName = "picallti_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "picallti_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
     private String text;
