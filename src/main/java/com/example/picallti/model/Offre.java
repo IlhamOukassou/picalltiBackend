@@ -10,7 +10,7 @@ import java.time.LocalTime;
 @Entity
 public class Offre {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer imageId;
     private String titre;

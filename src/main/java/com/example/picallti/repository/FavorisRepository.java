@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface FavorisRepository extends JpaRepository<Favoris,Integer> {
 
-    public List<Favoris> findByUser(User user);
+    Optional<List<Favoris>> findByUser(User user);
 
 }

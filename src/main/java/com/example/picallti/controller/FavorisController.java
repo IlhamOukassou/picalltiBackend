@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/favoris")
@@ -30,10 +31,10 @@ public class FavorisController {
         return new ResponseEntity<>(favoris,HttpStatus.OK);
     }
 
-    @GetMapping("/findallbyuser/{id}")
-    public ResponseEntity<List<Favoris>> getFavorisByUser(int id){
-        List<Favoris> favorisByUser = favorisService.findByUser(id);
-        return new ResponseEntity<>(favorisByUser,HttpStatus.OK);
+    @GetMapping("/findallbyuser")
+    public ResponseEntity<Optional<List<Favoris>>> getFavorisByUser(@RequestParam int id){
+        Optional<List<Favoris>> favorisByUser = favorisService.findByUser(id);
+        return new ResponseEntity<Optional<List<Favoris>>>(favorisByUser,HttpStatus.OK);
     }
 
     @PostMapping("/add")
