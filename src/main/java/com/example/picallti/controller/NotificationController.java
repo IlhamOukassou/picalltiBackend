@@ -1,30 +1,43 @@
 package com.example.picallti.controller;
 
+import com.example.picallti.model.Notification;
 import com.example.picallti.model.User;
 import com.example.picallti.service.NotificationService;
+import com.example.picallti.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/notification/")
+@RequestMapping(path = "/notification")
 public class NotificationController {
     @Autowired
     NotificationService notificationService;
 
-    private static Logger logger = LoggerFactory.getLogger(NotificationController.class);
     public NotificationController(){};
 
-    /*@RequestMapping(value="/notifications/user",method = RequestMethod.GET)
-    public ResponseEntity<Object> getNotificationsByUser(@RequestParam(required = false,defaultValue = "")String limit){
-        logger.debug("inside getNotificationsByUser api for fetch user notification");
+   @GetMapping("/all")
+    public ResponseEntity<List<Notification>> getAllNotifications(){
+       List<Notification> notifications = notificationService.findAllNotification();
+       return new ResponseEntity<>(notifications, HttpStatus.OK);
+   }
 
-    }*/
+    @GetMapping("/findallbyuser/{id}")
+    public ResponseEntity<List<Notification>> getNotificationByUser(@PathVariable Integer id){
+        List<Notification> notificationByUser = notificationService.findByUser(id);
+        return new ResponseEntity<>(notificationByUser,HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Notification> addNotification(@RequestBody Notification notification){
+        Notification newNotification = notificationService.addNotification(notification);
+        return new ResponseEntity<>(newNotification,HttpStatus.CREATED);
+    }
 }

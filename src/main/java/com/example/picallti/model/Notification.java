@@ -2,10 +2,9 @@ package com.example.picallti.model;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 
 @Entity
 public class Notification {
@@ -31,7 +30,7 @@ public class Notification {
     private String url;
 
 
-    public Notification(int id,String title, String text, int icon, User user, LocalTime time, LocalDate localDate) {
+    public Notification(int id, String title, String text, int icon, User user, LocalTime time, LocalDate localDate) {
         this.id = id;
         this.title = title;
         this.text = text;
@@ -49,7 +48,7 @@ public class Notification {
 
     }
 
-    public Notification(String title, String text, LocalTime time,LocalDate date,User user) {
+    public Notification(String title, String text, LocalTime time, LocalDate date, User user) {
         this.title = title;
         this.text = text;
         this.time = time;
@@ -57,7 +56,7 @@ public class Notification {
         this.user = user;
 
     }
-    public Notification(String title, int icon, LocalTime time,LocalDate date,User user) {
+    public Notification(String title, int icon, LocalTime time, LocalDate date, User user) {
         this.title = title;
         this.icon = icon;
         this.time = time;
@@ -66,7 +65,7 @@ public class Notification {
 
     }
 
-    public Notification(String title, String text, int icon, LocalTime time, LocalDate date,User user) {
+    public Notification(String title, String text, int icon, LocalTime time, LocalDate date, User user) {
         this.title = title;
         this.text = text;
         this.icon = icon;
