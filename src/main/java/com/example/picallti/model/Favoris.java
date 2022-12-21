@@ -6,10 +6,11 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Favoris")
+
 public class Favoris {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false , nullable = false)
     private int id;
 
     @ManyToOne
