@@ -17,10 +17,6 @@ import java.util.Collection;
 @RequestMapping("/commentaires/")
 public class CommentaireController {
     @Autowired
-    private OffreRepository offreRepositorye;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private CommentaireService commentaireService;
 
     @RequestMapping(value = "add",method = RequestMethod.POST)
