@@ -28,7 +28,7 @@ public class FavorisService  {
         return favorisRepository.findAll();
     }
     public Favoris findFavorisById(int id){
-        return favorisRepository.findById(id).orElseThrow(() -> new FavorisNotFoundException("Favoris "+id+"not found !"));
+        return favorisRepository.findById(id).orElseThrow(() -> new FavorisNotFoundException("Favoris "+id+" not found !"));
     }
     public Optional<List<Favoris>> findByUser(int id){
         User user = userRepository.findById(id).get();
