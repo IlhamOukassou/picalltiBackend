@@ -14,11 +14,16 @@ import java.util.Collection;
 @RequestMapping("/users/")
 public class UserController {
     @Autowired
-    private UserService userService;
+    public UserService userService;
+
 
     @RequestMapping(value = "add",method = RequestMethod.POST)
     public void addUser(@RequestBody User user){
-        userService.addUser(user);
+       if(userService.userRepository.findByEmail(user.getEmail()).isEmpty()){
+           userService.addUser(user);
+       }else {
+           throw new RuntimeException("email exist");
+       }
     }
     @RequestMapping(value = "getAll")
     public Collection<User> getAllUsers(){
@@ -34,7 +39,7 @@ public class UserController {
         }
     }
     @RequestMapping(value = "getByEmail")
-    public User getUserById(@RequestParam String email){
+    public User getUserByEmail(@RequestParam String email){
         if (userService.getUserByEmail(email).isPresent()){
             return userService.getUserByEmail(email).get();
         }
@@ -43,13 +48,24 @@ public class UserController {
         }
     }
     @RequestMapping(value = "update",method = RequestMethod.POST)
-    public void updateUser(@RequestBody User user){
-        userService.update(user);
+    public User updateUser(@RequestBody User user){
+        if (userService.getUserById(user.getId()).isPresent()){
+            userService.update(user);
+            return user;
+        }else{
+            throw new RuntimeException("user not found");
+        }
     }
 
     @RequestMapping(value = "remove")
-    public void removeUser(@RequestParam int id){
-        userService.removeUserById(id);
+    public User removeUser(@RequestParam int id){
+        if (userService.getUserById(id).isPresent()){
+            userService.removeUserById(id);
+            return userService.getUserById(id).get();
+        }else{
+            throw new RuntimeException("user not found");
+        }
+
     }
 
 

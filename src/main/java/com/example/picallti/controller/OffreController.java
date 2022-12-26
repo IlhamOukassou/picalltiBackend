@@ -16,8 +16,6 @@ public class OffreController {
 
     @Autowired
     private OffreService offreService;
-    @Autowired
-    private UserRepository userRepository;
 
     @RequestMapping(value = "add",method = RequestMethod.POST)
     public void addOffre(@RequestBody Offre offre){

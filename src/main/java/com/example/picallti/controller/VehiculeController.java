@@ -15,7 +15,7 @@ public class VehiculeController {
     @Autowired
     private VehiculeService vehiculeService;
 
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @RequestMapping(value = "add",method = RequestMethod.POST)
     public void addVehicule(@RequestBody Vehicule vehicule){
         vehiculeService.addVehicule(vehicule);
     }
