@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface VehiculeTypeRepository extends JpaRepository<VehiculeType,Integer> {
-    Optional<VehiculeType> findVehiculeTypeByName(String nom);
+    Optional<VehiculeType> findVehiculeTypeByName(String name);
+    Boolean existsVehiculeTypeByName(String name);
 
 
 }

@@ -5,28 +5,26 @@ import com.example.picallti.repository.VehiculeTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class VehiculeTypeService {
-    private final VehiculeTypeRepository vehiculeTypeRepository;
-
-
     @Autowired
-    public VehiculeTypeService(VehiculeTypeRepository vehiculeTypeRepository) {
-        this.vehiculeTypeRepository = vehiculeTypeRepository;
-    }
+    public VehiculeTypeRepository vehiculeTypeRepository;
 
-    public List<VehiculeType> getVehiculeType(){
+    public Collection<VehiculeType> getVehiculeType(){
+
         return vehiculeTypeRepository.findAll();
     }
 
-    public VehiculeType getVehiculeTypeById(int id){
-        return vehiculeTypeRepository.findById(id).get();
+    public Optional<VehiculeType> getVehiculeTypeById(int id){
+
+        return vehiculeTypeRepository.findById(id);
     }
 
-    public Optional<VehiculeType> getVehiculeTypeByName(String nom){
-        return  vehiculeTypeRepository.findVehiculeTypeByName(nom);
+    public Optional<VehiculeType> getVehiculeTypeByName(String name){
+        return  vehiculeTypeRepository.findVehiculeTypeByName(name);
     }
 }
