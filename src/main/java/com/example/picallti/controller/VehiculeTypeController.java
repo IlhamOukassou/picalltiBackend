@@ -1,36 +1,40 @@
 package com.example.picallti.controller;
 
 import com.example.picallti.model.VehiculeType;
-import com.example.picallti.repository.VehiculeTypeRepository;
 import com.example.picallti.service.VehiculeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Collection;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/vehiculetype")
 public class VehiculeTypeController {
+
     @Autowired
-    private VehiculeTypeService vehiculeTypeService;
+    public VehiculeTypeService vehiculeTypeService;
 
     @GetMapping(value = "getAll")
-    public List<VehiculeType> getVehiculeType(){
+    public Collection<VehiculeType> getVehiculeType(){
         return vehiculeTypeService.getVehiculeType();
     }
 
     @GetMapping(value = "getbyid")
     public VehiculeType getVehiculeTypeById(@RequestParam int id){
-        return vehiculeTypeService.getVehiculeTypeById(id);
+        if(vehiculeTypeService.getVehiculeTypeById(id).isPresent()){
+            return vehiculeTypeService.getVehiculeTypeById(id).get();
+        }else {
+            return null;
+        }
     }
 
     @GetMapping(value = "getbyname")
-    public Optional<VehiculeType> getVehiculeTypeByName(@RequestParam String nom){
-        return  vehiculeTypeService.getVehiculeTypeByName(nom);
+    public VehiculeType getVehiculeTypeByName(@RequestParam String name){
+        if(vehiculeTypeService.getVehiculeTypeByName(name).isPresent()){
+            return  vehiculeTypeService.getVehiculeTypeByName(name).get();
+        }else{
+            return null;
+        }
     }
-
 }
