@@ -11,6 +11,8 @@ public class User {
     private String nom;
     private String prenom;
     private String genre;
+
+    @Column(unique = true)
     private String email;
     private int phone;
     private String password;

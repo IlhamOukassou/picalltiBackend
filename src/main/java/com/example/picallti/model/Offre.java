@@ -21,6 +21,7 @@ public class Offre {
     private String operation;
 
     @ManyToOne
+    @JoinColumn(name = "user",referencedColumnName = "id")
     private User user;
     @ManyToOne
     private Vehicule vehicule;
