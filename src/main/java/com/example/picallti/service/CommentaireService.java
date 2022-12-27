@@ -14,7 +14,7 @@ import java.util.Collection;
 @Service
 public class CommentaireService {
     @Autowired
-    private CommentaireRepository commentaireRepository;
+    public CommentaireRepository commentaireRepository;
     @Autowired
     private OffreRepository offreRepository;
     @Autowired

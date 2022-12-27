@@ -36,4 +36,8 @@ public class Commentaire {
     @Temporal(TemporalType.DATE)
     private LocalDate LocalDateTime;
 
+
+    public Commentaire(String commentaire, User user, Offre offre, LocalTime now, LocalDate now1) {
+    }
+
 }

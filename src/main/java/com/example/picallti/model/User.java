@@ -62,6 +62,14 @@ public class User {
         this.role = role;
     }
 
+    public User(String nom, String prenom, String genre, String email, int phone, String password) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.genre = genre;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+    }
     public User() {
 
     }

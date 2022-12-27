@@ -72,6 +72,7 @@ public class Note {
         return offre;
     }
 
+
     public void setOffre(Offre offre) {
         this.offre = offre;
     }

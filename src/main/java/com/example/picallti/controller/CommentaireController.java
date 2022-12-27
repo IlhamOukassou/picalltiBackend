@@ -1,12 +1,9 @@
 package com.example.picallti.controller;
 
 import com.example.picallti.model.Commentaire;
-import com.example.picallti.model.Offre;
-import com.example.picallti.repository.CommentaireRepository;
 import com.example.picallti.repository.OffreRepository;
 import com.example.picallti.repository.UserRepository;
 import com.example.picallti.service.CommentaireService;
-import com.example.picallti.service.OffreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +14,11 @@ import java.util.Collection;
 @RequestMapping("/commentaires/")
 public class CommentaireController {
     @Autowired
-    private OffreRepository offreRepositorye;
+    private OffreRepository offreRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private CommentaireService commentaireService;
+    CommentaireService commentaireService;
 
     @RequestMapping(value = "add",method = RequestMethod.POST)
     public void addCommentaire(@RequestBody Commentaire commentaire){
@@ -48,8 +45,9 @@ public class CommentaireController {
     }
 
     @RequestMapping(value = "update",method = RequestMethod.POST)
-    public void updateCommentaire(@RequestBody Commentaire commentaire){
+    public Commentaire updateCommentaire(@RequestBody Commentaire commentaire){
        commentaireService.updateCommentaire(commentaire);
+        return commentaire;
     }
 
     @RequestMapping("remove")
