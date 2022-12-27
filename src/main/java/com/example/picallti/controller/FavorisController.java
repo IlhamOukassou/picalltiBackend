@@ -43,11 +43,11 @@ public class FavorisController {
         return new ResponseEntity<>(newFavoris,HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
+    /*@PutMapping("/update")
     public ResponseEntity<Favoris> updateFavoris(@RequestBody Favoris favoris){
         Favoris updateFavoris = favorisService.updateFavoris(favoris);
         return new ResponseEntity<>(updateFavoris,HttpStatus.OK);
-    }
+    }*/
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteFavoris(@PathVariable("id") int id){

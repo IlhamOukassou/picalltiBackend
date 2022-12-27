@@ -24,6 +24,12 @@ public class Favoris {
         this.user = user;
         this.offre = offre;
     }
+    public Favoris(int id, User user, Offre offre , LocalDateTime localDateTime) {
+        this.id = id;
+        this.user = user;
+        this.offre = offre;
+        this.localDateTime = localDateTime;
+    }
     public Favoris( User user, Offre offre) {
         this.user = user;
         this.offre = offre;
