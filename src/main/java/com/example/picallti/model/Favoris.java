@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 @Table(name = "Favoris")
 public class Favoris {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false , nullable = false)
     private int id;
 
     @ManyToOne
@@ -22,6 +23,12 @@ public class Favoris {
         this.id = id;
         this.user = user;
         this.offre = offre;
+    }
+    public Favoris(int id, User user, Offre offre , LocalDateTime localDateTime) {
+        this.id = id;
+        this.user = user;
+        this.offre = offre;
+        this.localDateTime = localDateTime;
     }
     public Favoris( User user, Offre offre) {
         this.user = user;
