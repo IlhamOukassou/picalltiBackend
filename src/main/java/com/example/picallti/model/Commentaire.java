@@ -27,5 +27,4 @@ public class Commentaire {
     private LocalTime time;
     @Temporal(TemporalType.DATE)
     private LocalDate LocalDateTime;
-
 }

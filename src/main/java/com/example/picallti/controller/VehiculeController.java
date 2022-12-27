@@ -13,7 +13,7 @@ import java.util.Collection;
 public class VehiculeController {
 
     @Autowired
-    private VehiculeService vehiculeService;
+    public VehiculeService vehiculeService;
 
     @RequestMapping(value = "add",method = RequestMethod.POST)
     public void addVehicule(@RequestBody Vehicule vehicule){
