@@ -47,7 +47,7 @@ public class OffreService {
             offre1.setTime(offre.getTime());
             offre1.setUrl(offre.getUrl());
             offre1.setUser(offre.getUser());
-            offre1.setLocalDateTime(offre.getLocalDateTime());
+            offre1.setlocaLDate(offre.getlocaLDate());
             offre1.setTitre(offre.getTitre());
             offre1.setVehicule(offre.getVehicule());
             offreRepository.save(offre1);

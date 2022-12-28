@@ -43,7 +43,7 @@ public class FavorisService  {
         Favoris favoris1 = favorisRepository.findById(favoris.getId()).get();
         if(favoris1 != null){
             favoris1.setUser(favoris1.getUser());
-            favoris1.setLocalDateTime(favoris1.getLocalDateTime());
+            favoris1.setLocalDateTime(favoris1.getlocaLDate());
             favoris1.setOffre(favoris1.getOffre());
             return favorisRepository.save(favoris1);
         }
