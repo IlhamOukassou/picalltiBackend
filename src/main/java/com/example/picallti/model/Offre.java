@@ -17,6 +17,9 @@ public class Offre {
     private float prix;
     private String time;
     private String operation;
+    private String ville;
+
+
 
     @ManyToOne
     @JoinColumn(name = "user",referencedColumnName = "id")
@@ -25,8 +28,6 @@ public class Offre {
     private Vehicule vehicule;
     private String url;
     private String locaLDate;
-
-    private String ville;
 
     public Offre(Integer id, Integer imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
         this.id = id;
@@ -41,6 +42,7 @@ public class Offre {
         this.locaLDate = locaLDate;
         this.vehicule = vehicule;
         this.ville = ville;
+
     }
 
     public Offre( Integer imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
@@ -93,7 +95,7 @@ public class Offre {
         this.ville = ville;
 
     }
-    public Offre(String titre, String description, float prix, String url,String ville){
+    public Offre(String titre, String description, float prix, String url,String ville ){
         this.titre = titre;
         this.description = description;
         this.prix = prix;
@@ -212,21 +214,5 @@ public class Offre {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public String getLocaLDate() {
-        return locaLDate;
-    }
-
-    public void setLocaLDate(String locaLDate) {
-        this.locaLDate = locaLDate;
-    }
-
-    public String getVille() {
-        return ville;
-    }
-
-    public void setVille(String ville) {
-        this.ville = ville;
     }
 }
