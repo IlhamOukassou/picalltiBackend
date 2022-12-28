@@ -69,7 +69,7 @@ public class Note {
         this.offre = offre;
     }
 
-    public LocalDateTime getLocalDateTime() {
+    public LocalDateTime getlocaLDate() {
         return LocalDateTime;
     }
 

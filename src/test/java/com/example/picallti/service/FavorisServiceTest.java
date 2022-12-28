@@ -200,7 +200,7 @@ class FavorisServiceTest {
         Favoris favoris = mock(Favoris.class);
         when(favoris.getOffre()).thenThrow(new FavorisNotFoundException("An error occurred"));
         when(favoris.getUser()).thenThrow(new FavorisNotFoundException("An error occurred"));
-        when(favoris.getLocalDateTime()).thenThrow(new FavorisNotFoundException("An error occurred"));
+        when(favoris.getlocaLDate()).thenThrow(new FavorisNotFoundException("An error occurred"));
         doThrow(new FavorisNotFoundException("An error occurred")).when(favoris).setLocalDateTime((LocalDateTime) any());
         doThrow(new FavorisNotFoundException("An error occurred")).when(favoris).setOffre((Offre) any());
         doThrow(new FavorisNotFoundException("An error occurred")).when(favoris).setUser((User) any());
@@ -254,7 +254,7 @@ class FavorisServiceTest {
         Favoris favoris = mock(Favoris.class);
         when(favoris.getOffre()).thenThrow(new FavorisNotFoundException("An error occurred"));
         when(favoris.getUser()).thenThrow(new FavorisNotFoundException("An error occurred"));
-        when(favoris.getLocalDateTime()).thenThrow(new FavorisNotFoundException("An error occurred"));
+        when(favoris.getlocaLDate()).thenThrow(new FavorisNotFoundException("An error occurred"));
         doThrow(new FavorisNotFoundException("An error occurred")).when(favoris).setLocalDateTime((LocalDateTime) any());
         doThrow(new FavorisNotFoundException("An error occurred")).when(favoris).setOffre((Offre) any());
         doThrow(new FavorisNotFoundException("An error occurred")).when(favoris).setUser((User) any());

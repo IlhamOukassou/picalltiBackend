@@ -65,7 +65,7 @@ public class Favoris {
         this.offre = offre;
     }
 
-    public LocalDateTime getLocalDateTime() {
+    public LocalDateTime getlocaLDate() {
         return localDateTime;
     }
 
