@@ -23,10 +23,8 @@ public class Commentaire {
     private User user;
     @ManyToOne
     private Offre offre;
-    @Temporal(TemporalType.TIME)
-    private LocalTime time;
-    @Temporal(TemporalType.DATE)
-    private LocalDate LocalDateTime;
+    private String time;
+    private String LocalDateTime;
 
 
     public Commentaire(String commentaire, User user, Offre offre, LocalTime now, LocalDate now1) {

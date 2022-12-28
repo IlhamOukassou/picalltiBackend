@@ -34,8 +34,8 @@ public class CommentaireController {
     public Collection<Commentaire> getAllCommentairesByUser(@RequestParam int id){
         return commentaireService.getCommentairesByUser(id);
     }
-    @RequestMapping("getAllByOffre")
-    public Collection<Commentaire> getAllCommentairesByOffre(@RequestParam int id){
+    @RequestMapping("getAllByOffre/{id}")
+    public Collection<Commentaire> getAllCommentairesByOffre(@PathVariable int id){
         return commentaireService.getCommentairesByOffre(id);
     }
 
