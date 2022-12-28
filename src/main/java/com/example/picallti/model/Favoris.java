@@ -9,15 +9,8 @@ import java.time.LocalDateTime;
 
 public class Favoris {
     @Id
-    @SequenceGenerator(
-            name = "picallti_sequence",
-            sequenceName = "picallti_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "picallti_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false , nullable = false)
     private int id;
 
     @ManyToOne
