@@ -11,7 +11,7 @@ import java.util.Collection;
 public class VehiculeService {
 
     @Autowired
-    private VehiculeRepository vehiculeRepository;
+    public VehiculeRepository vehiculeRepository;
 
     public void addVehicule(Vehicule vehicule){
         vehiculeRepository.save(vehicule);

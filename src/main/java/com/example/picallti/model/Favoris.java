@@ -9,10 +9,9 @@ import java.time.LocalDateTime;
 
 public class Favoris {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false , nullable = false)
     private int id;
-
     @ManyToOne
     private User user;
     @ManyToOne

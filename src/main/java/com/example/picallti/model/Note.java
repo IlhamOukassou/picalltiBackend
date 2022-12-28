@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Note {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int note;
 
@@ -63,6 +63,7 @@ public class Note {
     public Offre getOffre() {
         return offre;
     }
+
 
     public void setOffre(Offre offre) {
         this.offre = offre;
