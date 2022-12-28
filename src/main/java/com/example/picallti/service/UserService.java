@@ -1,6 +1,8 @@
 package com.example.picallti.service;
 
 
+import com.example.picallti.dto.LoginRequestDTO;
+import com.example.picallti.exception.LoginRequestException;
 import com.example.picallti.model.User;
 import com.example.picallti.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +53,10 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-
+    public Optional<User> loginUser(LoginRequestDTO loginRequestDTO){
+        return Optional.ofNullable(userRepository.findOneByEmailIgnoreCaseAndPassword(loginRequestDTO.getEmail(), loginRequestDTO.getPassword())
+                .orElseThrow(() -> new LoginRequestException("Login Error !")));
+    }
 
 
 }

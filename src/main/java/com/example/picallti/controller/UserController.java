@@ -1,13 +1,17 @@
 package com.example.picallti.controller;
 
 
+import com.example.picallti.dto.LoginRequestDTO;
 import com.example.picallti.model.User;
 import com.example.picallti.repository.UserRepository;
 import com.example.picallti.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -66,6 +70,12 @@ public class UserController {
             throw new RuntimeException("user not found");
         }
 
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Optional<User>> loginUser(@RequestBody LoginRequestDTO loginRequestDTO){
+        Optional<User> user = userService.loginUser(loginRequestDTO);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 
