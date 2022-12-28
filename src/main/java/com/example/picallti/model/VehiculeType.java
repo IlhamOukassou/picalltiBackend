@@ -8,23 +8,23 @@ public class VehiculeType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
+    private String nom;
     private String url;
 
     public VehiculeType() {
 
     }
 
-    public VehiculeType(int id, String name) {
+    public VehiculeType(int id, String nom) {
         this.id = id;
-        this.name = name;
+        this.nom = nom;
     }
-    public VehiculeType(int id, String name,String url) {
+    public VehiculeType(int id, String nom,String url) {
         this.id = id;
-        this.name = name;
+        this.nom = nom;
     }
-    public VehiculeType(String name) {
-        this.name = name;
+    public VehiculeType(String nom) {
+        this.nom = nom;
     }
 
 
@@ -45,12 +45,12 @@ public class VehiculeType {
         this.id = id;
     }
 
-    public String getname() {
-        return name;
+    public String getNom() {
+        return nom;
     }
 
-    public void setname(String name) {
-        this.name = name;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
 }
