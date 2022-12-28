@@ -44,9 +44,9 @@ class OffreServiceTest {
     @Test
     void testAddOffre() {
         when(offreRepository.save((Offre) any())).thenReturn(
-                new Offre("Titre", "The characteristics of someone or something", 10.0f, "https://example.org/example"));
+                new Offre("Titre", "The characteristics of someone or something", 10.0f, "https://example.org/example", "rabat"));
         Offre offre = new Offre("Titre", "The characteristics of someone or something", 10.0f,
-                "https://example.org/example");
+                "https://example.org/example", "rabat");
 
         offreService.addOffre(offre);
         verify(offreRepository).save((Offre) any());
@@ -76,7 +76,7 @@ class OffreServiceTest {
     @Test
     void testGetOffreById() {
         Offre offre = new Offre("Titre", "The characteristics of someone or something", 10.0f,
-                "https://example.org/example");
+                "https://example.org/example", "rabat");
 
         when(offreRepository.findById((Integer) any())).thenReturn(Optional.of(offre));
         assertSame(offre, offreService.getOffreById(1));
@@ -105,11 +105,11 @@ class OffreServiceTest {
     @Test
     void testUpdateOffre() {
         when(offreRepository.save((Offre) any())).thenReturn(
-                new Offre("Titre", "The characteristics of someone or something", 10.0f, "https://example.org/example"));
+                new Offre("Titre", "The characteristics of someone or something", 10.0f, "https://example.org/example", "rabat"));
         when(offreRepository.findById((Integer) any())).thenReturn(Optional
-                .of(new Offre("Titre", "The characteristics of someone or something", 10.0f, "https://example.org/example")));
+                .of(new Offre("Titre", "The characteristics of someone or something", 10.0f, "https://example.org/example", "rabat")));
         offreService.updateOffre(
-                new Offre("Titre", "The characteristics of someone or something", 10.0f, "https://example.org/example"));
+                new Offre("Titre", "The characteristics of someone or something", 10.0f, "https://example.org/example", "rabat"));
         verify(offreRepository).save((Offre) any());
         verify(offreRepository).findById((Integer) any());
     }

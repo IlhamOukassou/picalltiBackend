@@ -49,8 +49,8 @@ class FavorisControllerTest {
         VehiculeType vehiculetypeTest = new VehiculeType(1, "BMW");
         Vehicule vehiculeTest = new Vehicule("BMW", vehiculetypeTest);
         userTest = new User("Fadili", "Ayoub", "Male", "test@gmail.com", 660553514, "1234", 1, "test", "test");
-        Offre offreTest = new Offre("test", "test", "test3", 10, "test", userTest, vehiculeTest);
-        Offre offreTest2 = new Offre("test2", "test", "test3", 10, "test", userTest, vehiculeTest);
+        Offre offreTest = new Offre("test", "test", "test3", 10, "test", userTest, vehiculeTest, "rabat");
+        Offre offreTest2 = new Offre("test2", "test", "test3", 10, "test", userTest, vehiculeTest, "rabat");
         Favoris testFavoris = new Favoris(1, userTest, offreTest);
         Favoris testFavoris2 = new Favoris(2, userTest, offreTest2);
         this.favorisList.add(testFavoris);

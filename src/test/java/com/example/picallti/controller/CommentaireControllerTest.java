@@ -31,10 +31,7 @@ import com.example.picallti.service.CommentaireService;
 
 @ExtendWith(MockitoExtension.class)
 public class CommentaireControllerTest {
-    @Autowired
-    private User user;
-    @Autowired
-    private Offre offre;
+
     @Mock
     private CommentaireRepository commentaireRepository;
 
@@ -60,8 +57,10 @@ public class CommentaireControllerTest {
 
     @Test
     void canAddCommetaire() {
+        User user1 = new User();
+        Offre offre1 = new Offre();
         //given
-        Commentaire commentaire = new Commentaire(1, "Commentaire", user, offre, LocalTime.now(), LocalDate.now());
+        Commentaire commentaire = new Commentaire(1, "Commentaire", user1, offre1, LocalTime.now().toString(), LocalDate.now().toString());
         //when
         commentaireController.addCommentaire(commentaire);
         //then
@@ -104,8 +103,9 @@ public class CommentaireControllerTest {
     @Test
     void updateCommentaireIfExist() {
         int commentaireId = 1;
-
-        Commentaire commentaire = new Commentaire(commentaireId, "commentaire", user, offre,LocalTime.now(), LocalDate.now());
+        User user1 = new User();
+        Offre offre1 = new Offre();
+        Commentaire commentaire = new Commentaire(commentaireId, "commentaire", user1, offre1,LocalTime.now().toString(), LocalDate.now().toString());
 
 
         lenient().when(commentaireRepository.existsById(commentaireId)).thenReturn(true);
