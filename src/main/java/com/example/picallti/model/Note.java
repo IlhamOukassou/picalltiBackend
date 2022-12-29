@@ -8,15 +8,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Note {
     @Id
-    @SequenceGenerator(
-            name = "picallti_sequence",
-            sequenceName = "picallti_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "picallti_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int note;
 
@@ -72,11 +64,12 @@ public class Note {
         return offre;
     }
 
+
     public void setOffre(Offre offre) {
         this.offre = offre;
     }
 
-    public LocalDateTime getLocalDateTime() {
+    public LocalDateTime getlocaLDate() {
         return LocalDateTime;
     }
 

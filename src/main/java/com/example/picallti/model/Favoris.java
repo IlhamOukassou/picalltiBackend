@@ -9,17 +9,9 @@ import java.time.LocalDateTime;
 
 public class Favoris {
     @Id
-    @SequenceGenerator(
-            name = "picallti_sequence",
-            sequenceName = "picallti_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "picallti_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false , nullable = false)
     private int id;
-
     @ManyToOne
     private User user;
     @ManyToOne
@@ -30,6 +22,12 @@ public class Favoris {
         this.id = id;
         this.user = user;
         this.offre = offre;
+    }
+    public Favoris(int id, User user, Offre offre , LocalDateTime localDateTime) {
+        this.id = id;
+        this.user = user;
+        this.offre = offre;
+        this.localDateTime = localDateTime;
     }
     public Favoris( User user, Offre offre) {
         this.user = user;
@@ -67,7 +65,7 @@ public class Favoris {
         this.offre = offre;
     }
 
-    public LocalDateTime getLocalDateTime() {
+    public LocalDateTime getlocaLDate() {
         return localDateTime;
     }
 

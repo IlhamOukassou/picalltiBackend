@@ -6,33 +6,25 @@ import jakarta.persistence.*;
 @Entity
 public class VehiculeType {
     @Id
-    @SequenceGenerator(
-            name = "picallti_sequence",
-            sequenceName = "picallti_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "picallti_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nom;
+    private String name;
     private String url;
 
     public VehiculeType() {
 
     }
 
-    public VehiculeType(int id, String nom) {
+    public VehiculeType(int id, String name) {
         this.id = id;
-        this.nom = nom;
+        this.name = name;
     }
-    public VehiculeType(int id, String nom,String url) {
+    public VehiculeType(int id, String name,String url) {
         this.id = id;
-        this.nom = nom;
+        this.name = name;
     }
-    public VehiculeType(String nom) {
-        this.nom = nom;
+    public VehiculeType(String name) {
+        this.name = name;
     }
 
 
@@ -53,12 +45,12 @@ public class VehiculeType {
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public String getname() {
+        return name;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setname(String name) {
+        this.name = name;
     }
 
 }

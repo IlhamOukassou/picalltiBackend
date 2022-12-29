@@ -3,39 +3,33 @@ package com.example.picallti.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 
 @Entity
 public class Offre {
     @Id
-    @SequenceGenerator(
-            name = "picallti_sequence",
-            sequenceName = "picallti_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "picallti_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer imageId;
     private String titre;
     private String description;
     private String localisation;
     private float prix;
-    private LocalTime time;
+    private String time;
     private String operation;
+    private String ville;
+
+
 
     @ManyToOne
+    @JoinColumn(name = "user",referencedColumnName = "id")
     private User user;
     @ManyToOne
     private Vehicule vehicule;
     private String url;
-    private LocalDate LocalDateTime;
+    private String locaLDate;
 
-    public Offre(Integer id, Integer imageId, String titre, String description, String localisation, float prix, LocalTime time, String operation, User user,Vehicule vehicule,LocalDate LocalDateTime) {
+    public Offre(Integer id, Integer imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
         this.id = id;
         this.imageId = imageId;
         this.titre = titre;
@@ -45,11 +39,13 @@ public class Offre {
         this.time = time;
         this.operation = operation;
         this.user = user;
-        this.LocalDateTime = LocalDateTime;
+        this.locaLDate = locaLDate;
         this.vehicule = vehicule;
+        this.ville = ville;
+
     }
 
-    public Offre( Integer imageId, String titre, String description, String localisation, float prix, LocalTime time, String operation, User user,Vehicule vehicule,LocalDate LocalDateTime) {
+    public Offre( Integer imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
         this.imageId = imageId;
         this.titre = titre;
         this.description = description;
@@ -59,10 +55,12 @@ public class Offre {
         this.operation = operation;
         this.user = user;
         this.vehicule = vehicule;
-        this.LocalDateTime = LocalDateTime;
+        this.locaLDate = locaLDate;
+        this.ville = ville;
+
     }
 
-    public Offre(int id, String titre, String description, String operation, float prix, String url, User owner, Vehicule vehicule) {
+    public Offre(int id, String titre, String description, String operation, float prix, String url, User owner, Vehicule vehicule,String ville) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -71,9 +69,11 @@ public class Offre {
         this.user = owner;
         this.vehicule = vehicule;
         this.url = url;
+        this.ville = ville;
+
     }
 
-    public Offre(String titre, String description, String operation, float prix, String url, User owner, Vehicule vehicule) {
+    public Offre(String titre, String description, String operation, float prix, String url, User owner, Vehicule vehicule,String ville) {
         this.titre = titre;
         this.description = description;
         this.operation = operation;
@@ -81,8 +81,10 @@ public class Offre {
         this.user = owner;
         this.vehicule = vehicule;
         this.url = url;
+        this.ville = ville;
+
     }
-    public Offre(String titre, String operation,float prix,String description,  String url, User owner, Vehicule vehicule) {
+    public Offre(String titre, String operation,float prix,String description,  String url, User owner, Vehicule vehicule,String ville) {
         this.titre = titre;
         this.description = description;
         this.operation = operation;
@@ -90,12 +92,15 @@ public class Offre {
         this.user = owner;
         this.vehicule = vehicule;
         this.url = url;
+        this.ville = ville;
+
     }
-    public Offre(String titre, String description, float prix, String url ){
+    public Offre(String titre, String description, float prix, String url,String ville ){
         this.titre = titre;
         this.description = description;
         this.prix = prix;
         this.url = url;
+        this.ville = ville;
     }
 
     public Offre() {
@@ -126,7 +131,7 @@ public class Offre {
         return prix;
     }
 
-    public LocalTime getTime() {
+    public String getTime() {
         return time;
     }
 
@@ -150,7 +155,7 @@ public class Offre {
         this.prix = prix;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -182,12 +187,12 @@ public class Offre {
         this.vehicule = vehicule;
     }
 
-    public LocalDate getLocalDateTime() {
-        return LocalDateTime;
+    public String getlocaLDate() {
+        return locaLDate;
     }
 
-    public void setLocalDateTime(LocalDate LocalDateTime) {
-        this.LocalDateTime = LocalDateTime;
+    public void setlocaLDate(String locaLDate) {
+        this.locaLDate = locaLDate;
     }
 
     @Override
