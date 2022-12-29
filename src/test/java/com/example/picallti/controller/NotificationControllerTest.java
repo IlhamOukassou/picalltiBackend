@@ -69,13 +69,6 @@ class NotificationControllerTest {
 
         notificationController.addNotification(notification);
 
-        /*
-        ArgumentCaptor<User> argumentCaptor = ArgumentCaptor.forClass(User.class);
-        verify(userRepository).save(argumentCaptor.capture());
-
-        User user1 = argumentCaptor.getValue();
-        assertThat(user1).isEqualTo(user);
-         */
 
         ArgumentCaptor<Notification> argumentCaptor = ArgumentCaptor.forClass(Notification.class);
         verify(notificationRepository).save(argumentCaptor.capture());
@@ -86,12 +79,7 @@ class NotificationControllerTest {
 
     @Test
     void canFindAllNotification(){
-        /*
-        //when
-        commentaireController.getAllCommentaires();
-        //then
-        verify(commentaireRepository).findAll();
-         */
+
 
         notificationController.getAllNotifications();
         verify(notificationRepository).findAll();
@@ -99,7 +87,7 @@ class NotificationControllerTest {
 
     @Test
     void canFindNotificationByUser() throws Exception{
-        /*
+/*
         Notification mockNotification = new Notification();
         User user = new User();
         mockNotification.setUser(user);
