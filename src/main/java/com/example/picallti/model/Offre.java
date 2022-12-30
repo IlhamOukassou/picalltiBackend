@@ -215,4 +215,20 @@ public class Offre {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    /*public String getLocaLDate() {
+        return locaLDate;
+    }
+
+    public void setLocaLDate(String locaLDate) {
+        this.locaLDate = locaLDate;
+    }*/
 }
