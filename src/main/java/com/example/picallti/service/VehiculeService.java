@@ -21,6 +21,10 @@ public class VehiculeService {
         return vehiculeRepository.findAll();
     }
 
+    public Vehicule getLast(){
+        //int number = (int)vehiculeRepository.count();
+        return vehiculeRepository.findTopByOrderByIdDesc();
+    }
     public void removeVehiculeById(int id){
         vehiculeRepository.deleteById(id);
     }
