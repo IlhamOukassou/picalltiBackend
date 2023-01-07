@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/offers/")
@@ -44,5 +45,14 @@ public class OffreController {
     public void removeOffreById(@PathVariable int id)
     {
         offreService.removeById(id);
+    }
+
+    @RequestMapping(value = "offrebyvehiculetype")
+    public Collection<Offre> findOffreByVehiculeType(@RequestParam String vehiculeTypeName){
+        Collection<Offre> offres = offreService.getOffersByVehiculeType(vehiculeTypeName);
+        if (offres.isEmpty()){
+            return Collections.EMPTY_LIST ;
+        }
+        return offreService.getOffersByVehiculeType(vehiculeTypeName);
     }
 }

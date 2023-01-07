@@ -1,4 +1,5 @@
 package com.example.picallti.controller;
+
 import com.example.picallti.model.Commentaire;
 import com.example.picallti.model.Offre;
 import com.example.picallti.model.User;
@@ -23,7 +24,9 @@ import static org.mockito.BDDMockito.given;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
+
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 
 import com.example.picallti.repository.CommentaireRepository;
@@ -40,6 +43,31 @@ public class CommentaireControllerTest {
     private CommentaireController commentaireController;
     private AutoCloseable autoCloseable;
     private MockMvc mockMvc;
+
+    /**
+     * Method under test: {@link CommentaireController#addCommentaire(Commentaire)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testAddCommentaire() {
+        // TODO: Complete this test.
+        //   Diffblue AI was unable to find a test
+
+        CommentaireController commentaireController = new CommentaireController();
+        commentaireController.addCommentaire(new Commentaire());
+    }
+
+    /**
+     * Method under test: {@link CommentaireController#addCommentaire(Commentaire)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testAddCommentaire2() {
+        // TODO: Complete this test.
+        //   Diffblue AI was unable to find a test
+
+        (new CommentaireController()).addCommentaire(mock(Commentaire.class));
+    }
 
     @BeforeEach
     void setUp() {
@@ -82,6 +110,42 @@ public class CommentaireControllerTest {
 
     }
 
+    /**
+     * Method under test: {@link CommentaireController#getAllCommentaires()}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testGetAllCommentaires() {
+        // TODO: Complete this test.
+        //   Diffblue AI was unable to find a test
+
+        (new CommentaireController()).getAllCommentaires();
+    }
+
+    /**
+     * Method under test: {@link CommentaireController#getAllCommentairesByUser(int)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testGetAllCommentairesByUser() {
+        // TODO: Complete this test.
+        //   Diffblue AI was unable to find a test
+
+        (new CommentaireController()).getAllCommentairesByUser(1);
+    }
+
+    /**
+     * Method under test: {@link CommentaireController#getAllCommentairesByOffre(int)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testGetAllCommentairesByOffre() {
+        // TODO: Complete this test.
+        //   Diffblue AI was unable to find a test
+
+        (new CommentaireController()).getAllCommentairesByOffre(1);
+    }
+
     @Test
     void getCommentaireByIdIfExist() throws Exception {
         Commentaire mockCommentaire = new Commentaire();
@@ -96,8 +160,42 @@ public class CommentaireControllerTest {
 
     }
 
+    /**
+     * Method under test: {@link CommentaireController#getCommentaireById(int)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testGetCommentaireById() {
+        // TODO: Complete this test.
+        //   Diffblue AI was unable to find a test
 
+        (new CommentaireController()).getCommentaireById(1);
+    }
 
+    /**
+     * Method under test: {@link CommentaireController#updateCommentaire(Commentaire)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testUpdateCommentaire() {
+        // TODO: Complete this test.
+        //   Diffblue AI was unable to find a test
+
+        CommentaireController commentaireController = new CommentaireController();
+        commentaireController.updateCommentaire(new Commentaire());
+    }
+
+    /**
+     * Method under test: {@link CommentaireController#updateCommentaire(Commentaire)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testUpdateCommentaire2() {
+        // TODO: Complete this test.
+        //   Diffblue AI was unable to find a test
+
+        (new CommentaireController()).updateCommentaire(mock(Commentaire.class));
+    }
 
 
     @Test
@@ -105,7 +203,7 @@ public class CommentaireControllerTest {
         int commentaireId = 1;
         User user1 = new User();
         Offre offre1 = new Offre();
-        Commentaire commentaire = new Commentaire(commentaireId, "commentaire", user1, offre1,LocalTime.now().toString(), LocalDate.now().toString());
+        Commentaire commentaire = new Commentaire(commentaireId, "commentaire", user1, offre1, LocalTime.now().toString(), LocalDate.now().toString());
 
 
         lenient().when(commentaireRepository.existsById(commentaireId)).thenReturn(true);
@@ -116,6 +214,18 @@ public class CommentaireControllerTest {
 
         assertEquals(commentaire, commentaire1);
 
+    }
+
+    /**
+     * Method under test: {@link CommentaireController#removeCommentaireById(int)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testRemoveCommentaireById() {
+        // TODO: Complete this test.
+        //   Diffblue AI was unable to find a test
+
+        (new CommentaireController()).removeCommentaireById(1);
     }
 
     @Test
