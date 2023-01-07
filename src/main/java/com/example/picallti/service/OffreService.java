@@ -60,4 +60,8 @@ public class OffreService {
         offreRepository.deleteById(id);
     }
 
+    public Collection<Offre> filterOffresByPrix(float min, float max){
+        return offreRepository.filterOffresByPrix(min,max);
+    }
+
 }

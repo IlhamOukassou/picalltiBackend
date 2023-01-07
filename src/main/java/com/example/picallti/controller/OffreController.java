@@ -5,6 +5,7 @@ import com.example.picallti.service.OffreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @RestController
@@ -44,5 +45,10 @@ public class OffreController {
     public void removeOffreById(@PathVariable int id)
     {
         offreService.removeById(id);
+    }
+
+    @GetMapping("filter")
+    public Collection<Offre> filterOffresByPrix(@RequestParam float min, @RequestParam float max){
+        return offreService.filterOffresByPrix(min,max);
     }
 }
