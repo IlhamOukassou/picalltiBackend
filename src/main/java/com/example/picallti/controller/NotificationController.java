@@ -23,11 +23,11 @@ public class NotificationController {
 
     public NotificationController(){};
 
-   @GetMapping("/all")
+    @GetMapping("/all")
     public ResponseEntity<List<Notification>> getAllNotifications(){
-       List<Notification> notifications = notificationService.findAllNotification();
-       return new ResponseEntity<>(notifications, HttpStatus.OK);
-   }
+        List<Notification> notifications = notificationService.findAllNotification();
+        return new ResponseEntity<>(notifications, HttpStatus.OK);
+    }
 
     @GetMapping("/findallbyuser/{id}")
     public ResponseEntity<List<Notification>> getNotificationByUser(@PathVariable Integer id){

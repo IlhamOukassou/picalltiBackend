@@ -4,6 +4,7 @@ import com.example.picallti.model.Notification;
 import com.example.picallti.model.User;
 import com.example.picallti.repository.NotificationRepository;
 import com.example.picallti.service.NotificationService;
+import com.example.picallti.service.UserService;
 import lombok.ToString;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,12 +44,13 @@ class NotificationControllerTest {
 
     private NotificationController notificationController;
 
-    private AutoCloseable autoCloseable;
+    private AutoCloseable autoCloseable1;
 
+    private List notificationList;
 
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         AutoCloseable autoCloseable1 = MockitoAnnotations.openMocks(this);
         notificationController = new NotificationController();
         notificationService = new NotificationService();
@@ -58,14 +60,14 @@ class NotificationControllerTest {
     }
 
     @AfterEach
-    void tearDown() throws Exception{
+    void tearDown() throws Exception {
         //autoCloseable.close();
     }
 
     @Test
-    void canAddNotification(){
+    void canAddNotification() {
         User userTest = new User();
-        Notification notification = new Notification(1, "title", "text", 1, userTest, LocalTime.now(), LocalDate.of(2022, Month.JULY, 9) );
+        Notification notification = new Notification(1, "title", "text", 1, userTest, LocalTime.now(), LocalDate.of(2022, Month.JULY, 9));
 
         notificationController.addNotification(notification);
 
@@ -78,26 +80,83 @@ class NotificationControllerTest {
     }
 
     @Test
-    void canFindAllNotification(){
+    void canFindAllNotification() {
 
 
         notificationController.getAllNotifications();
         verify(notificationRepository).findAll();
     }
-
+/*
     @Test
     void canFindNotificationByUser() throws Exception{
-/*
-        Notification mockNotification = new Notification();
+
         User user = new User();
-        mockNotification.setUser(user);
+
+        //List<Notification> mockNotification = (List<Notification>) new Notification(1, "title", "text", 1, user, LocalTime.now(), LocalDate.of(2022, Month.JULY, 9));
+        Notification mockNotification = new Notification(1, "title", "text", 1, user, LocalTime.now(), LocalDate.of(2022, Month.JULY, 9));
+        lenient().when(notificationRepository.existsById(user.getId())).thenReturn(true);
+        //lenient().when(notificationRepository.findById(user.getId())).thenReturn(Optional.of(mockNotification));
+        doReturn(Optional.of(mockNotification)).when(notificationRepository.findById(user.getId()));
+
+
+        List<Notification> notification = (List<Notification>) notificationController.getNotificationByUser(user.getId());
+        assertEquals(mockNotification, notification);
+/*
+
+        User mockUser = new User();
+        //String clientCin = "cin";
+        String mail = "email";
+        mockUser.setEmail(mail);
+        //mockUser.setCin(clientCin);
+        lenient().when(userRepository.existsUserByEmail(mail)).thenReturn(true);
+        lenient().when(userRepository.findByEmail(mail)).thenReturn(Optional.of(mockUser));
+
+        User user = userController.getUserByEmail(mail);
+        System.out.println(user);
+        assertEquals(mockUser, user);
+         */
+
+}
+
+/*
+    @Test
+    void canFindNotificationByUser() throws Exception{
+
+        List<Notification> mockNotification = (List<Notification>) new Notification();
+        User user = new User();
+        mockNotification.;
         lenient().when(notificationRepository.existsById(user.getId())).thenReturn(true);
         lenient().when(notificationRepository.findById(user.getId())).thenReturn(Optional.of(mockNotification));
 
 
-        ResponseEntity<List<Notification>> notification = notificationController.getNotificationByUser(user.getId());
-        assertEquals(mockNotification,notification);*/
-    }
+        List<Notification> notification = (List<Notification>) notificationController.getNotificationByUser(user.getId());
+        assertEquals(mockNotification, notification);
 
 
-}
+         User mockUser = new User();
+        //String clientCin = "cin";
+        String mail = "email";
+        mockUser.setEmail(mail);
+        //mockUser.setCin(clientCin);
+        lenient().when(userRepository.existsUserByEmail(mail)).thenReturn(true);
+        lenient().when(userRepository.findByEmail(mail)).thenReturn(Optional.of(mockUser));
+
+        User user = userController.getUserByEmail(mail);
+        System.out.println(user);
+        assertEquals(mockUser, user);
+         */
+
+        /*
+        User mockUser = new User();
+        //String clientCin = "cin";
+        int userId = 1;
+        mockUser.setId(userId);
+        //mockUser.setCin(clientCin);
+        lenient().when(userRepository.existsById(userId)).thenReturn(true);
+        lenient().when(userRepository.findById(userId)).thenReturn(Optional.of(mockUser));
+
+        User user = userController.getUserById(userId);
+        //System.out.println(user);
+        assertEquals(mockUser, user);
+
+    }*/
