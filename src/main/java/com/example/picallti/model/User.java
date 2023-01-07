@@ -73,6 +73,16 @@ public class User {
         this.bio = bio;
         this.imageName = imageName;
     }
+
+    public User(String nom, String prenom, String email, int phone, String bio ,String imageName) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.genre = genre;
+        this.email = email;
+        this.phone = phone;
+        this.bio = bio;
+        this.imageName= imageName;
+    }
     public User() {
 
     }
