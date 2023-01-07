@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -71,5 +72,10 @@ public class OffreController {
             return Collections.EMPTY_LIST ;
         }
         return offreService.getOffersByVehiculeType(vehiculeTypeName);
+    }
+
+    @GetMapping("filter")
+    public Collection<Offre> filterOffresByPrix(@RequestParam float min, @RequestParam float max){
+        return offreService.filterOffresByPrix(min,max);
     }
 }
