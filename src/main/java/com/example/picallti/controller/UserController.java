@@ -23,11 +23,8 @@ public class UserController {
 
     @RequestMapping(value = "add",method = RequestMethod.POST)
     public void addUser(@RequestBody User user){
-       if(userService.userRepository.findByEmail(user.getEmail()).isEmpty()){
            userService.addUser(user);
-       }else {
-           throw new RuntimeException("email exist");
-       }
+
     }
     @RequestMapping(value = "getAll")
     public Collection<User> getAllUsers(){
@@ -72,11 +69,27 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "existsByEmail")
+    public boolean existsUserByEmail(@RequestParam String email){
+        if (userService.getUserByEmail(email).isPresent()){
+            return true;
+        }else return false;
+    }
+
+    @RequestMapping(value = "existsByPhone")
+    public boolean existsUserByPhone(@RequestParam int phone ){
+        if (userService.getUserByPhone(phone).isPresent()){
+            return true;
+        }else return false;
+    }
+
     @PostMapping("/login")
     public ResponseEntity<Optional<User>> loginUser(@RequestBody LoginRequestDTO loginRequestDTO){
         Optional<User> user = userService.loginUser(loginRequestDTO);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+
 
 
 

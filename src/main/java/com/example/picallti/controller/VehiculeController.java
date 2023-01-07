@@ -25,6 +25,11 @@ public class VehiculeController {
         return  vehiculeService.getAllVehicules();
     }
 
+    @RequestMapping(value = "getLast")
+    public Vehicule getLastVhicule(){
+        return vehiculeService.getLast();
+    }
+
     @RequestMapping(value = "remove")
     public void removeVehicule(@RequestParam int id){
         vehiculeService.removeVehiculeById(id);

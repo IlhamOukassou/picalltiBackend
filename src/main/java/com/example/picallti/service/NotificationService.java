@@ -16,9 +16,9 @@ import java.util.Optional;
 
 @Service
 public class NotificationService {
-
     @Autowired
-    public NotificationRepository notificationRepository;
+    public
+    NotificationRepository notificationRepository;
     @Autowired
     UserRepository userRepository;
     public NotificationService(){}
