@@ -19,6 +19,8 @@ public class Offre {
     private String operation;
     private String ville;
 
+    private String imageName;
+
 
 
     @ManyToOne
@@ -26,6 +28,8 @@ public class Offre {
     private User user;
     @ManyToOne
     private Vehicule vehicule;
+
+
     private String url;
     private String locaLDate;
 
@@ -195,6 +199,13 @@ public class Offre {
         this.locaLDate = locaLDate;
     }
 
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
     @Override
     public String toString() {
         return "Offre{" +
@@ -215,4 +226,20 @@ public class Offre {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    /*public String getLocaLDate() {
+        return locaLDate;
+    }
+
+    public void setLocaLDate(String locaLDate) {
+        this.locaLDate = locaLDate;
+    }*/
 }

@@ -16,12 +16,12 @@ public class User {
     private String email;
     private int phone;
     private String password;
-    private int photo;
+    private String imageName;
     private String bio;
     private String role;
 
 
-    public User(int id, String nom, String prenom, String genre, String email, int phone, String password, int photo, String bio, String role) {
+    public User(int id, String nom, String prenom, String genre, String email, int phone, String password, String imageName, String bio, String role) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -29,30 +29,30 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.photo = photo;
+        this.imageName = imageName;
         this.bio = bio;
         this.role = role;
     }
-    public User(String nom, String prenom, String genre, String email, int phone, String password, int photo, String bio, String role) {
+    public User(String nom, String prenom, String genre, String email, int phone, String password, String imageName, String bio, String role) {
         this.nom = nom;
         this.prenom = prenom;
         this.genre = genre;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.photo = photo;
+        this.imageName = imageName;
         this.bio = bio;
         this.role = role;
     }
 
-    public User(String nom, String prenom, String genre, String email, int phone, String password, int photo, String role) {
+    public User(String nom, String prenom, String genre, String email, int phone, String password, String imageName, String role) {
         this.nom = nom;
         this.prenom = prenom;
         this.genre = genre;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.photo = photo;
+        this.imageName = imageName;
         this.role = role;
     }
 
@@ -63,6 +63,15 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.password = password;
+    }
+    public User(String nom, String prenom, String genre, String email, int phone, String bio, String imageName) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.genre = genre;
+        this.email = email;
+        this.phone = phone;
+        this.bio = bio;
+        this.imageName = imageName;
     }
     public User() {
 
@@ -124,12 +133,12 @@ public class User {
         this.password = password;
     }
 
-    public int getPhoto() {
-        return photo;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setPhoto(int photo) {
-        this.photo = photo;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public String getBio() {

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/vehiculetype")
+@RequestMapping("/vehiculetype/")
 public class VehiculeTypeController {
     @Autowired
     private VehiculeTypeService vehiculeTypeService;

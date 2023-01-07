@@ -22,6 +22,4 @@ public class PicalltiApplication {
 		SpringApplication. run(PicalltiApplication.class, args);
 	}
 
-
-
 }

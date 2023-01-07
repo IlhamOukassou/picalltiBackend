@@ -127,7 +127,7 @@ class FavorisServiceTest {
         Optional<List<Favoris>> ofResult = Optional.of(new ArrayList<>());
         when(favorisRepository.findByUser((User) any())).thenReturn(ofResult);
         when(userRepository.findById((Integer) any())).thenReturn(
-                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", 1, "Role")));
+                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role")));
         Optional<List<Favoris>> actualFindByUserResult = favorisService.findByUser(1);
         assertSame(ofResult, actualFindByUserResult);
         assertTrue(actualFindByUserResult.isPresent());
@@ -142,7 +142,7 @@ class FavorisServiceTest {
     void testFindByUser2() {
         when(favorisRepository.findByUser((User) any())).thenThrow(new FavorisNotFoundException("An error occurred"));
         when(userRepository.findById((Integer) any())).thenReturn(
-                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", 1, "Role")));
+                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role")));
         assertThrows(FavorisNotFoundException.class, () -> favorisService.findByUser(1));
         verify(favorisRepository).findByUser((User) any());
         verify(userRepository).findById((Integer) any());
