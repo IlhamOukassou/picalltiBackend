@@ -5,6 +5,7 @@ import com.example.picallti.service.OffreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 @RestController
@@ -31,6 +32,7 @@ public class OffreController {
 
     @RequestMapping("getById/{id}")
     public Offre getOffreById(@PathVariable int id){
+
         return offreService.getOffreById(id);
     }
 
@@ -44,5 +46,20 @@ public class OffreController {
     public void removeOffreById(@PathVariable int id)
     {
         offreService.removeById(id);
+    }
+
+    @RequestMapping("getByDate/{date}")
+    public Collection<Offre> findOffreByLocaLDate(@PathVariable String date){
+        return offreService.findOffreByLocaLDate(date);
+    }
+
+    @RequestMapping("getByDateDesc")
+    public Collection<Offre> getOffreByDateDesc(){
+        return offreService.findByDateDesc();
+    }
+
+    @RequestMapping("getByVille/{ville}")
+    public Collection<Offre> getOffreByVille(@PathVariable String ville){
+        return offreService.findOffreByVille(ville);
     }
 }

@@ -64,6 +64,25 @@ public class User {
         this.phone = phone;
         this.password = password;
     }
+
+    public User(String nom, String prenom, String genre, String email, int phone, String bio , int photo) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.genre = genre;
+        this.email = email;
+        this.phone = phone;
+        this.bio = bio;
+        this.photo = photo;
+    }
+    public User(String nom, String prenom, String email, int phone, String bio , int photo) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.genre = genre;
+        this.email = email;
+        this.phone = phone;
+        this.bio = bio;
+        this.photo = photo;
+    }
     public User() {
 
     }
