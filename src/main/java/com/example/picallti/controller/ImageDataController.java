@@ -1,5 +1,7 @@
 package com.example.picallti.controller;
 
+import com.example.picallti.model.ImageData;
+import com.example.picallti.model.User;
 import com.example.picallti.service.ImageDataService;
 import com.example.picallti.util.ImageDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +33,16 @@ public class ImageDataController {
                 .contentType(MediaType.valueOf("image/png"))
                 .body(imageData);
     }
+
+    @RequestMapping(value = "remove")
+    public ImageData removeImageByName(@RequestParam String name){
+        if (imageDataService.getImageByName(name).isPresent()){
+            imageDataService.removeImageByName(name);
+            return imageDataService.getImageByName(name).get();
+        }else{
+            throw new RuntimeException("Image not found");
+        }
+
+    }
+
 }

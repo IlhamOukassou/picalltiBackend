@@ -1,6 +1,7 @@
 package com.example.picallti.service;
 
 import com.example.picallti.model.ImageData;
+import com.example.picallti.model.User;
 import com.example.picallti.repository.ImageDataRepository;
 import com.example.picallti.util.ImageDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -16,7 +18,7 @@ public class ImageDataService {
     private ImageDataRepository imageDataRepository;
 
     public String UploadImage(MultipartFile file ) throws IOException {
-       ImageData imageData =   imageDataRepository.save(ImageData.builder()
+       ImageData imageData = imageDataRepository.save(ImageData.builder()
                 .name(file.getOriginalFilename())
                 .type(file.getContentType())
                 .imageData(ImageDataUtil.compressImage(file.getBytes())).build());
@@ -31,5 +33,24 @@ public class ImageDataService {
         Optional<ImageData> dbImageData = imageDataRepository.findByName(fileName);
         byte[] images = ImageDataUtil.decompressImage(dbImageData.get().getImageData());
         return images;
+    }
+    public Collection<ImageData> getAllImages(){
+        return imageDataRepository.findAll();
+    }
+
+    public Optional<ImageData> getImageById(long id){
+        return imageDataRepository.findById(id);
+    }
+
+    public Optional<ImageData> getImageByName(String name){
+        return imageDataRepository.findByName(name);
+    }
+
+    public void removeImageById(long id){
+        imageDataRepository.deleteById(id);
+    }
+
+    public void removeImageByName(String name){
+        imageDataRepository.deleteByName(name);
     }
 }

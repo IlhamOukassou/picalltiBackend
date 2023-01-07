@@ -68,7 +68,7 @@ public class UserService {
             String passwordEncoded = bcrypt.encode(userFromDb.getPassword());
             userFromDb.setPassword(passwordEncoded);
             userFromDb.setPhone(user.getPhone());
-            userFromDb.setPhoto(user.getPhoto());
+            userFromDb.setImageName(user.getImageName());
             userFromDb.setBio(user.getBio());
             userFromDb.setRole(user.getRole());
             userRepository.save(userFromDb);
