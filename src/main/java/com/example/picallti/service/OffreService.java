@@ -95,4 +95,8 @@ public class OffreService {
     public Collection<Offre> findOffreByVille(String ville) {
         return offreRepository.findOffreByVille(ville);
     }
+    public Collection<Offre> filterOffresByPrix(float min, float max){
+        return offreRepository.filterOffresByPrix(min,max);
+    }
+
 }
