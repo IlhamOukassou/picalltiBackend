@@ -73,12 +73,30 @@ public class OffreService {
             offre1.setTitre(offre.getTitre());
             offre1.setVehicule(offre.getVehicule());
             offreRepository.save(offre1);
-
         }
     }
 
+//    public Collection<Offre> findByOfferLocate(String date) {
+//        return offreRepository.findByOfferLocate(date);
+//    }
+
     public void removeById(int id){
         offreRepository.deleteById(id);
+    }
+
+    public Collection<Offre> findByDateDesc() {
+        return offreRepository.findByDateDesc();
+    }
+
+    public Collection<Offre> findOffreByLocaLDate(String date) {
+        return offreRepository.findOffreByLocaLDate(date);
+    }
+
+    public Collection<Offre> findOffreByVille(String ville) {
+        return offreRepository.findOffreByVille(ville);
+    }
+    public Collection<Offre> filterOffresByPrix(float min, float max){
+        return offreRepository.filterOffresByPrix(min,max);
     }
 
 }
