@@ -66,7 +66,6 @@ public class UserController {
         }else{
             throw new RuntimeException("user not found");
         }
-
     }
 
     @RequestMapping(value = "existsByEmail")

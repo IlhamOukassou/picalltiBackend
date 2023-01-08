@@ -48,7 +48,7 @@ public class OffreController {
     }
 
     @RequestMapping(value = "offrebyvehiculetype")
-    public Collection<Offre> findOffreByVehiculeType(@RequestParam String vehiculeTypeName){
+    public Collection<Offre> getOffersByVehiculeType(@RequestParam String vehiculeTypeName){
         Collection<Offre> offres = offreService.getOffersByVehiculeType(vehiculeTypeName);
         if (offres.isEmpty()){
             return Collections.EMPTY_LIST ;
