@@ -27,8 +27,8 @@ public class OffreController {
         return offreService.getAllOffers();
     }
 
-    @RequestMapping("getAllByUser/{id}")
-    public Collection<Offre> getAllOffersByUser(@PathVariable int id){
+    @RequestMapping("getAllByUser")
+    public Collection<Offre> getAllOffersByUser(@RequestParam int id){
         return offreService.getOffersByUser(id);
     }
 
