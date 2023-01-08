@@ -49,9 +49,21 @@ public class FavorisController {
         return new ResponseEntity<>(updateFavoris,HttpStatus.OK);
     }*/
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteFavoris(@PathVariable("id") int id){
-        favorisService.deleteFavoris(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @DeleteMapping("/delete")
+    public void deleteFavoris(@PathVariable("id") int id){
+        //favorisService.deleteFavoris(id);
+        //return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+
+    @RequestMapping(value = "remove",method = RequestMethod.POST)
+    public void remove(@RequestBody Favoris favoris){
+        favorisService.deleteFavoris(favoris);
+    }
+
+    @RequestMapping(value = "check", method = RequestMethod.POST)
+    public boolean checkIfExists(@RequestBody Favoris favoris) {
+        return favorisService.chechIfExist(favoris);
     }
 }
