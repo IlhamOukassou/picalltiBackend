@@ -51,8 +51,24 @@ public class FavorisService  {
             return null;
         }
     }
-    public void deleteFavoris(int id){
-        favorisRepository.deleteById(id);
+    public void deleteFavoris(Favoris favoris){
+        List<Favoris> favByUser = favorisRepository.findByUser(favoris.getUser()).get();
+        System.out.println(favByUser);
+        favByUser.forEach(favoris1 -> {
+            if (favoris1.getOffre().getId() == favoris.getOffre().getId()){
+                favorisRepository.deleteById(favoris1.getId());
+            }
+        });
+
+    }
+
+
+
+    public boolean chechIfExist(Favoris favoris){
+        if(favorisRepository.existsByUser(favoris.getUser()) && favorisRepository.existsByOffre(favoris.getOffre())){
+            return  true;
+        }
+        return false;
     }
 
 }

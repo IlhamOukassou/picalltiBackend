@@ -55,7 +55,7 @@ class UserControllerTest {
     @Test
     void canAddUser() {
         //given
-        User user = new User(1, "nom", "prenom", "F", "test@test.com", 1234568, "pass", 1, "bio", "role");
+        User user = new User(1, "nom", "prenom", "F", "test@test.com", 1234568, "pass", "img", "bio", "role");
         //when
         userController.addUser(user);
         //then
@@ -70,7 +70,7 @@ class UserControllerTest {
     @Disabled
     void willAddUserWhenEmailIsTaken() {
         //given
-        User user = new User(1, "nom", "prenom", "F", "test@test.com", 1234568, "pass", 1, "bio", "role");
+        User user = new User(1, "nom", "prenom", "F", "test@test.com", 1234568, "pass", "img", "bio", "role");
         //when
         userController.addUser(user);
 
@@ -148,7 +148,7 @@ class UserControllerTest {
         int userId = 1;
         //User mockUser = new User();
 
-        User user = new User(userId, "nom", "prenom", "F", "test@test.com", 1234568, "pass", 1, "bio", "role");
+        User user = new User(userId, "nom", "prenom", "F", "test@test.com", 1234568, "pass", "img", "bio", "role");
 
 
         lenient().when(userRepository.existsById(userId)).thenReturn(true);
