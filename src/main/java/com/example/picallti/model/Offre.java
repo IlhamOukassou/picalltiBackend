@@ -10,7 +10,7 @@ public class Offre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer imageId;
+    private Long imageId;
     private String titre;
     private String description;
     private String localisation;
@@ -33,7 +33,7 @@ public class Offre {
     private String url;
     private String locaLDate;
 
-    public Offre(Integer id, Integer imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
+    public Offre(Integer id, Long imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
         this.id = id;
         this.imageId = imageId;
         this.titre = titre;
@@ -49,7 +49,7 @@ public class Offre {
 
     }
 
-    public Offre( Integer imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
+    public Offre( Long imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
         this.imageId = imageId;
         this.titre = titre;
         this.description = description;
@@ -115,7 +115,7 @@ public class Offre {
         return id;
     }
 
-    public Integer getImageId() {
+    public Long getImageId() {
         return imageId;
     }
 
@@ -139,7 +139,7 @@ public class Offre {
         return time;
     }
 
-    public void setImageId(Integer imageId) {
+    public void setImageId(Long imageId) {
         this.imageId = imageId;
     }
 

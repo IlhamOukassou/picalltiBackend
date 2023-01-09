@@ -16,12 +16,12 @@ public class User {
     private String email;
     private int phone;
     private String password;
-    private String imageName;
+    private Long imageId;
     private String bio;
     private String role;
 
 
-    public User(int id, String nom, String prenom, String genre, String email, int phone, String password, String imageName, String bio, String role) {
+    public User(int id, String nom, String prenom, String genre, String email, int phone, String password, Long imageId, String bio, String role) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -29,30 +29,30 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.imageName = imageName;
+        this.imageId = imageId;
         this.bio = bio;
         this.role = role;
     }
-    public User(String nom, String prenom, String genre, String email, int phone, String password, String imageName, String bio, String role) {
+    public User(String nom, String prenom, String genre, String email, int phone, String password, Long imageId, String bio, String role) {
         this.nom = nom;
         this.prenom = prenom;
         this.genre = genre;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.imageName = imageName;
+        this.imageId = imageId;
         this.bio = bio;
         this.role = role;
     }
 
-    public User(String nom, String prenom, String genre, String email, int phone, String password, String imageName, String role) {
+    public User(String nom, String prenom, String genre, String email, int phone, String password, Long imageId, String role) {
         this.nom = nom;
         this.prenom = prenom;
         this.genre = genre;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.imageName = imageName;
+        this.imageId = imageId;
         this.role = role;
     }
 
@@ -64,24 +64,24 @@ public class User {
         this.phone = phone;
         this.password = password;
     }
-    public User(String nom, String prenom, String genre, String email, int phone, String bio, String imageName) {
+    public User(String nom, String prenom, String genre, String email, int phone, String bio, Long imageId) {
         this.nom = nom;
         this.prenom = prenom;
         this.genre = genre;
         this.email = email;
         this.phone = phone;
         this.bio = bio;
-        this.imageName = imageName;
+        this.imageId = imageId;
     }
 
-    public User(String nom, String prenom, String email, int phone, String bio ,String imageName) {
+    public User(String nom, String prenom, String email, int phone, String bio ,Long imageId) {
         this.nom = nom;
         this.prenom = prenom;
         this.genre = genre;
         this.email = email;
         this.phone = phone;
         this.bio = bio;
-        this.imageName= imageName;
+        this.imageId= imageId;
     }
     public User() {
 
@@ -143,12 +143,12 @@ public class User {
         this.password = password;
     }
 
-    public String getImageName() {
-        return imageName;
+    public Long getImageId() {
+        return imageId;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
     }
 
     public String getBio() {

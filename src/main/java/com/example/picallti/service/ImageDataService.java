@@ -38,7 +38,7 @@ public class ImageDataService {
         return imageDataRepository.findAll();
     }
 
-    public Optional<ImageData> getImageById(long id){
+    public Optional<ImageData> getImageById(Long id){
         return imageDataRepository.findById(id);
     }
 
@@ -46,7 +46,7 @@ public class ImageDataService {
         return imageDataRepository.findByName(name);
     }
 
-    public void removeImageById(long id){
+    public void removeImageById(Long id){
         imageDataRepository.deleteById(id);
     }
 

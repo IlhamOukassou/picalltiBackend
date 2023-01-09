@@ -58,15 +58,15 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "remove")
-    public User removeUser(@RequestParam int id){
+
+    @DeleteMapping(value = "/remove/{id}")
+    public ResponseEntity<Integer> deleteImageById(@PathVariable Integer id) {
         if (userService.getUserById(id).isPresent()){
             userService.removeUserById(id);
-            return userService.getUserById(id).get();
-        }else{
-            throw new RuntimeException("user not found");
+            return new ResponseEntity<>(id, HttpStatus.OK);}
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @RequestMapping(value = "existsByEmail")

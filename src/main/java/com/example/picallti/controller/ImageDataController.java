@@ -44,5 +44,15 @@ public class ImageDataController {
         }
 
     }
+    @DeleteMapping(value = "/remove/{id}")
+    public ResponseEntity<Long> deleteImageById(@PathVariable Long id) {
+        if (imageDataService.getImageById(id).isPresent()){
+            imageDataService.removeImageById(id);
+            return new ResponseEntity<>(id, HttpStatus.OK);}
+        else {
+            System.out.println("here");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
