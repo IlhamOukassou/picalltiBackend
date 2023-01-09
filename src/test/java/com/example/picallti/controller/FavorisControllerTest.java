@@ -110,7 +110,7 @@ class FavorisControllerTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
         final Favoris testFavoris = new Favoris(favorisId, null, null, dateTime);
-        doNothing().when(favorisService).deleteFavoris(testFavoris.getId());
+        doNothing().when(favorisService).deleteFavoris(testFavoris);
 
         this.mockMvc.perform(delete("/favoris/delete/{id}", testFavoris.getId()))
                 .andExpect(status().isOk());
