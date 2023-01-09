@@ -19,9 +19,11 @@ import java.util.Optional;
 @RequestMapping(path = "/notification")
 public class NotificationController {
     @Autowired
-    NotificationService notificationService;
+    private NotificationService notificationService;
 
-    public NotificationController(){};
+    public NotificationController(NotificationService notificationService){
+        this.notificationService = notificationService;
+    }
 
    @GetMapping("/all")
     public ResponseEntity<List<Notification>> getAllNotifications(){
