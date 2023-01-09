@@ -60,8 +60,8 @@ public class OffreController {
         return offreService.findByDateDesc();
     }
 
-    @RequestMapping("getByVille/{ville}")
-    public Collection<Offre> getOffreByVille(@PathVariable String ville){
+    @RequestMapping("getByVille")
+    public Collection<Offre> getOffreByVille(@RequestParam String ville){
         return offreService.findOffreByVille(ville);
     }
 
@@ -74,8 +74,13 @@ public class OffreController {
         return offreService.getOffersByVehiculeType(vehiculeTypeName);
     }
 
-    @GetMapping("filter")
+    @GetMapping("offrebyprice")
     public Collection<Offre> filterOffresByPrix(@RequestParam float min, @RequestParam float max){
         return offreService.filterOffresByPrix(min,max);
+    }
+
+    @RequestMapping("searchtitle")
+    public Collection<Offre> searchTitleContaining(@RequestParam String title){
+        return offreService.findInTitleLike(title);
     }
 }

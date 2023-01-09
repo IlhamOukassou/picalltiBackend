@@ -24,7 +24,6 @@ public class UserController {
     @RequestMapping(value = "add",method = RequestMethod.POST)
     public void addUser(@RequestBody User user){
            userService.addUser(user);
-
     }
     @RequestMapping(value = "getAll")
     public Collection<User> getAllUsers(){

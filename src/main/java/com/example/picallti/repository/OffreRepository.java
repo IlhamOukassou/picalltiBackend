@@ -28,4 +28,6 @@ public interface OffreRepository extends JpaRepository<Offre,Integer> {
 
     @Query("SELECT o FROM Offre o WHERE o.prix BETWEEN ?1 AND ?2")
     public Collection<Offre> filterOffresByPrix(float min,float max);
+
+    public Collection<Offre> getOffreByTitreContainingIgnoreCase(String titre);
 }
