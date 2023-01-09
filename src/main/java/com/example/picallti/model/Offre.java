@@ -2,8 +2,6 @@ package com.example.picallti.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-
 
 @Entity
 public class Offre {
@@ -33,7 +31,7 @@ public class Offre {
     private String url;
     private String locaLDate;
 
-    public Offre(Integer id, Integer imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
+    public Offre(Integer id, Integer imageId, String titre, String description, String localisation, float prix, String time, String operation, User user, Vehicule vehicule, String locaLDate, String ville) {
         this.id = id;
         this.imageId = imageId;
         this.titre = titre;

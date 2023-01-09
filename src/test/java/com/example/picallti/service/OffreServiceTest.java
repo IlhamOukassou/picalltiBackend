@@ -124,5 +124,9 @@ class OffreServiceTest {
         verify(offreRepository).deleteById((Integer) any());
         assertTrue(offreService.getAllOffers().isEmpty());
     }
+
+    @Test
+    void getOffersByUser() {
+    }
 }
 
