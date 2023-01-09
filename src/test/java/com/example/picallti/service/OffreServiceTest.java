@@ -91,7 +91,7 @@ class OffreServiceTest {
         ArrayList<Offre> offreList = new ArrayList<>();
         when(offreRepository.findOffresByUser((User) any())).thenReturn(offreList);
         when(userRepository.findById((Integer) any())).thenReturn(
-                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", 1, "Role")));
+                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role")));
         Collection<Offre> actualOffersByUser = offreService.getOffersByUser(1);
         assertSame(offreList, actualOffersByUser);
         assertTrue(actualOffersByUser.isEmpty());
