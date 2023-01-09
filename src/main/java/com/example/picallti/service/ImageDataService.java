@@ -34,6 +34,12 @@ public class ImageDataService {
         byte[] images = ImageDataUtil.decompressImage(dbImageData.get().getImageData());
         return images;
     }
+
+    public byte[] downloadImageById(Long id){
+        Optional<ImageData> dbImageData = imageDataRepository.findById(id);
+        byte[] images = ImageDataUtil.decompressImage(dbImageData.get().getImageData());
+        return images;
+    }
     public Collection<ImageData> getAllImages(){
         return imageDataRepository.findAll();
     }

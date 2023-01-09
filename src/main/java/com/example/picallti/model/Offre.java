@@ -29,8 +29,10 @@ public class Offre {
     @ManyToOne
     private Vehicule vehicule;
 
-
-    private String url;
+    @Lob
+    @Column(name = "file", columnDefinition = "LONGBLOB")
+    private byte[] imageData;
+    //private String url;
     private String locaLDate;
 
     public Offre(Integer id, Long imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
@@ -64,7 +66,7 @@ public class Offre {
 
     }
 
-    public Offre(int id, String titre, String description, String operation, float prix, String url, User owner, Vehicule vehicule,String ville) {
+    public Offre(int id, String titre, String description, String operation, float prix, byte[] imageData, User owner, Vehicule vehicule,String ville) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -72,38 +74,38 @@ public class Offre {
         this.prix = prix;
         this.user = owner;
         this.vehicule = vehicule;
-        this.url = url;
+        this.imageData = imageData;
         this.ville = ville;
 
     }
 
-    public Offre(String titre, String description, String operation, float prix, String url, User owner, Vehicule vehicule,String ville) {
+    public Offre(String titre, String description, String operation, float prix, byte[] imageData, User owner, Vehicule vehicule,String ville) {
         this.titre = titre;
         this.description = description;
         this.operation = operation;
         this.prix = prix;
         this.user = owner;
         this.vehicule = vehicule;
-        this.url = url;
+        this.imageData = imageData;
         this.ville = ville;
 
     }
-    public Offre(String titre, String operation,float prix,String description,  String url, User owner, Vehicule vehicule,String ville) {
+    public Offre(String titre, String operation,float prix,String description,byte[] imageData, User owner, Vehicule vehicule,String ville) {
         this.titre = titre;
         this.description = description;
         this.operation = operation;
         this.prix = prix;
         this.user = owner;
         this.vehicule = vehicule;
-        this.url = url;
+        this.imageData = imageData;
         this.ville = ville;
 
     }
-    public Offre(String titre, String description, float prix, String url,String ville ){
+    public Offre(String titre, String description, float prix, byte[] imageData,String ville ){
         this.titre = titre;
         this.description = description;
         this.prix = prix;
-        this.url = url;
+        this.imageData = imageData;
         this.ville = ville;
     }
 
@@ -219,12 +221,12 @@ public class Offre {
                 '}';
     }
 
-    public String getUrl() {
-        return url;
+    public byte[] getImageData() {
+        return imageData;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
 
     public String getVille() {

@@ -67,7 +67,7 @@ public class OffreService {
             offre1.setOperation(offre.getOperation());
             offre1.setPrix(offre.getPrix());
             offre1.setTime(offre.getTime());
-            offre1.setUrl(offre.getUrl());
+            offre1.setImageData(offre.getImageData());
             offre1.setUser(offre.getUser());
             offre1.setlocaLDate(offre.getlocaLDate());
             offre1.setTitre(offre.getTitre());

@@ -26,6 +26,7 @@ public class ImageDataController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(uploadImage);
     }
+
     @GetMapping("{fileName}")
     public ResponseEntity<?> downloadImage(@PathVariable String fileName){
         byte[] imageData = imageDataService.downloadImage(fileName);
@@ -34,16 +35,16 @@ public class ImageDataController {
                 .body(imageData);
     }
 
-    @RequestMapping(value = "remove")
-    public ImageData removeImageByName(@RequestParam String name){
-        if (imageDataService.getImageByName(name).isPresent()){
-            imageDataService.removeImageByName(name);
-            return imageDataService.getImageByName(name).get();
-        }else{
-            throw new RuntimeException("Image not found");
+    @GetMapping(value = "getById")
+    public ImageData getUserById(@RequestParam Long id){
+        if (imageDataService.getImageById(id).isPresent()){
+            return imageDataService.getImageById(id).get();
         }
-
+        else {
+            return null;
+        }
     }
+
     @DeleteMapping(value = "/remove/{id}")
     public ResponseEntity<Long> deleteImageById(@PathVariable Long id) {
         if (imageDataService.getImageById(id).isPresent()){

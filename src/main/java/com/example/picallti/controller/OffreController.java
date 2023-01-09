@@ -4,6 +4,7 @@ import com.example.picallti.model.Offre;
 import com.example.picallti.service.OffreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,7 +19,8 @@ public class OffreController {
     private OffreService offreService;
 
     @RequestMapping(value = "add",method = RequestMethod.POST)
-    public void addOffre(@RequestBody Offre offre){
+    public void addOffre(@RequestParam Offre offre,
+                         @RequestParam MultipartFile file){
         offreService.addOffre(offre);
     }
 
