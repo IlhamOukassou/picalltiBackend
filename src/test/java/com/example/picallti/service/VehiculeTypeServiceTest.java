@@ -51,5 +51,18 @@ class VehiculeTypeServiceTest {
         verify(vehiculeTypeRepository).findById((Integer) any());
     }
 
+    @Test
+    void testGetUserByName() {
+        Optional<VehiculeType> ofResult = Optional
+                .of(new VehiculeType(1, "Name", "URL"));
+        when(vehiculeTypeRepository.findVehiculeTypeByName((String) any())).thenReturn(ofResult);
+        Optional<VehiculeType> actualVehiculeTypeByName = vehiculeTypeService.getVehiculeTypeByName("Bicyclette");
+        assertSame(ofResult, actualVehiculeTypeByName);
+        assertTrue(actualVehiculeTypeByName.isPresent());
+        verify(vehiculeTypeRepository).findVehiculeTypeByName((String) any());
+    }
+
+
+
 
 }

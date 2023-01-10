@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 public class VehiculeTypeService {
-    private final VehiculeTypeRepository vehiculeTypeRepository;
+    public VehiculeTypeRepository vehiculeTypeRepository;
 
 
     @Autowired

@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequestMapping("/vehiculetype/")
 public class VehiculeTypeController {
     @Autowired
-    private VehiculeTypeService vehiculeTypeService;
+    public VehiculeTypeService vehiculeTypeService;
 
     @GetMapping(value = "getAll")
     public List<VehiculeType> getVehiculeType(){
