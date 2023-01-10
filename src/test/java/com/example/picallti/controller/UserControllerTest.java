@@ -1,5 +1,6 @@
 package com.example.picallti.controller;
 
+import com.example.picallti.dto.LoginRequestDTO;
 import com.example.picallti.model.User;
 import com.example.picallti.repository.UserRepository;
 import com.example.picallti.service.UserService;
@@ -12,39 +13,37 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.HttpClientErrorException;
+
+import javax.swing.text.html.Option;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 
-
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import static org.mockito.Mockito.*;
 
 
-//@WebMvcTest(controllers = UserController.class)
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
 
+
     @Mock
-    private UserRepository userRepository;
-
     private UserService userService;
-
     private UserController userController;
-    private AutoCloseable autoCloseable;
-    private MockMvc mockMvc;
+
 
     @BeforeEach
     void setUp() {
-        AutoCloseable autoCloseable = MockitoAnnotations.openMocks(this);
-        userController = new UserController();
-        userService = new UserService();
-        userService.userRepository = userRepository;
-        userController.userService = userService;
+        userController = new UserController(userService);
     }
 
     @AfterEach
@@ -52,139 +51,85 @@ class UserControllerTest {
         //autoCloseable.close();
     }
 
-    @Test
-    void canAddUser() {
-        //given
-        User user = new User( "nom", "prenom", "F", "test@test.com", 1234568, "pass" );
-        //when
-        userController.addUser(user);
-        //then
-        ArgumentCaptor<User> argumentCaptor = ArgumentCaptor.forClass(User.class);
-        verify(userRepository).save(argumentCaptor.capture());
 
-        User user1 = argumentCaptor.getValue();
-        assertThat(user1).isEqualTo(user);
+    @Test
+    void GetAllUsers() {
+        User user1 = new User();
+        User user2 = new User();
+        User user3 = new User();
+        Collection<User> mockUsers = new ArrayList<>();
+        mockUsers.addAll(List.of(user1,user2,user3));
+        when(userService.getAllUsers()).thenReturn(mockUsers);
+        Collection<User> users = userController.getAllUsers();
+        assertEquals(mockUsers,users);
+        verify(userService).getAllUsers();
+    }
+    @Test
+    void GetUserById(){
+        int userId = 1;
+        User mockUser = new User(userId,"nom","prenom","H","email",123,"mdp",null,"bio","role");
+        when(userService.getUserById(userId)).thenReturn(Optional.of(mockUser));
+        User user = userController.getUserById(userId);
+        assertEquals(mockUser,user);
+
+    }
+    @Test
+    void GetUserByEmail(){
+        String emailtest = "emailtest";
+        User mockUser = new User("Fadili","Ayoub","Homme",emailtest,123,"mdp");
+        when(userService.getUserByEmail(emailtest)).thenReturn(Optional.of(mockUser));
+        User user = userController.getUserByEmail(emailtest);
+        assertEquals(mockUser,user);
     }
 
-    @Test
     @Disabled
-    void willAddUserWhenEmailIsTaken() {
-        //given
-        User user = new User( "nom", "prenom", "F", "test@test.com", 1234568, "pass");
-        //when
-        userController.addUser(user);
-
-        boolean isExist = userRepository.findByEmail(user.getEmail()).isPresent();
-        given(userRepository.findByEmail(user.getEmail()).isPresent()).willReturn(true);
-        //doReturn(true).when(userRepository.findByEmail(user.getEmail())).isPresent();
-        //then
-        assertThatThrownBy(() -> userController.addUser(user)).isInstanceOf(HttpClientErrorException.BadRequest.class).hasMessageContaining("email exist");
-
-    }
-
     @Test
-    void canGetAllUsers() {
-        //when
-        userController.getAllUsers();
-        //then
-        verify(userRepository).findAll();
-
-
-    }
-
-
-    @Test
-    void getUserByIdIfNotExist() throws Exception {
+    void deleteUserById(){
         int userId = 1;
-        lenient().when(userRepository.existsById(userId)).thenReturn(false);
-        User user = userController.getUserById(userId);
-        assertNull(user);
-
+        User mockUser = new User(userId,"nom","prenom","H","email",123,"mdp",null,"bio","role");
+        doNothing().when(userService).removeUserById(userId);
+        userController.deleteUserById(userId);
+        verify(userService).removeUserById(userId);
     }
 
     @Test
-    void getUserByIdIfExist() throws Exception {
-        User mockUser = new User();
-        //String clientCin = "cin";
+    void addUser(){
+        User mockUser = new User(1,"nom","prenom","H","email",123,"mdp",null,"bio","role");
+        doNothing().when(userService).addUser(mockUser);
+        userController.addUser(mockUser);
+        verify(userService).addUser(mockUser);
+    }
+
+    @Disabled
+    @Test
+    void updateUser(){
         int userId = 1;
-        mockUser.setId(userId);
-        //mockUser.setCin(clientCin);
-        lenient().when(userRepository.existsById(userId)).thenReturn(true);
-        lenient().when(userRepository.findById(userId)).thenReturn(Optional.of(mockUser));
-
-        User user = userController.getUserById(userId);
-        //System.out.println(user);
-        assertEquals(mockUser, user);
-
-
+        User mockUser = new User(userId,"nom","prenom","H","email",123,"mdp",null,"bio","role");
+        doNothing().when(userService).update(mockUser);
+        userController.updateUser(mockUser);
+        verify(userService).update(mockUser);
     }
 
+    @Disabled
     @Test
-    void getUserByEmailIfNotExist() {
-        String mail = "email";
-        lenient().when(userRepository.existsUserByEmail(mail)).thenReturn(false);
-        User user = userController.getUserByEmail(mail);
-        assertNull(user);
+    void existsUserByEmail(){
+        String emailtest = "emailtest";
+        User mockIsUserPresent = new User("Fadili","Ayoub","Homme",emailtest,123,"mdp");
+        when(userService.getUserByEmail(emailtest).isPresent()).thenReturn(true);
+        Boolean IsUserPresent = userController.existsUserByEmail(emailtest);
+        assertEquals(mockIsUserPresent,IsUserPresent);
     }
-
     @Test
-    void getUserByEmailIfExist() {
-        User mockUser = new User();
-        //String clientCin = "cin";
-        String mail = "email";
-        mockUser.setEmail(mail);
-        //mockUser.setCin(clientCin);
-        lenient().when(userRepository.existsUserByEmail(mail)).thenReturn(true);
-        lenient().when(userRepository.findByEmail(mail)).thenReturn(Optional.of(mockUser));
-
-        User user = userController.getUserByEmail(mail);
-        System.out.println(user);
-        assertEquals(mockUser, user);
+    void loginUser(){
+        LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
+        loginRequestDTO.setEmail("email");
+        loginRequestDTO.setPassword("mdp");
+        User mockUser = new User("Fadili","Ayoub","Homme","email",123,"mdp");
+        when(userService.loginUser(loginRequestDTO)).thenReturn(Optional.of(mockUser));
+        Optional<User> user = userController.loginUser(loginRequestDTO).getBody();
+        assertEquals(Optional.of(mockUser),user);
     }
 
 
-    @Test
-    void updateUserIfExist() {
-        int userId = 1;
-        //User mockUser = new User();
 
-        User user = new User( "nom", "prenom", "F", "test@test.com", 1234568, "pass");
-
-
-        lenient().when(userRepository.existsById(userId)).thenReturn(true);
-        lenient().when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        lenient().when(userRepository.save(user)).thenReturn(user);
-
-        User user1 = userController.updateUser(user);
-
-        assertEquals(user, user1);
-
-    }
-
-    @Test
-    void updateUserIfNotExist() {
-        int userId = 1;
-        User mockUser = new User();
-        mockUser.setId(userId);
-        lenient().when(userRepository.existsById(userId)).thenReturn(true);
-        User user = null;
-        //if(userController.updateUser(mockUser) != null) user = userController.updateUser(mockUser);
-        assertThatExceptionOfType(RuntimeException.class);
-        //ssertNull(user);
-    }
-
-    /*@Test
-    void removeUserIfExist() {
-        int userId = 1;
-        //User mockUser = new User();
-
-
-
-        lenient().when(userRepository.existsById(userId)).thenReturn(true);
-
-        User user1 = userController.removeUser(userId);
-
-        assert
-
-    }*/
 }

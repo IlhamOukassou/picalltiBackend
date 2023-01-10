@@ -25,6 +25,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    public UserController(UserService userService){
+        this.userService = userService;
+    }
 
     @RequestMapping(value = "add",method = RequestMethod.POST)
     public void addUser(@RequestBody User user){
