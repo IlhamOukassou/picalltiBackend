@@ -3,15 +3,12 @@ package com.example.picallti.service;
 
 import com.example.picallti.dto.LoginRequestDTO;
 import com.example.picallti.exception.LoginRequestException;
-import com.example.picallti.model.ImageData;
 import com.example.picallti.model.User;
 import com.example.picallti.repository.UserRepository;
 import com.example.picallti.util.ImageDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -45,20 +42,6 @@ public class UserService {
 
     }
 
-    public void UpdateUserWithImage( MultipartFile file, User user) throws IOException {
-        Optional<User> userByEmail = userRepository
-                .findByEmail(user.getEmail());
-        Optional<User> userByPhone = userRepository
-                .findByPhone(user.getPhone());
-            String passwordEncoded = bcrypt.encode(user.getPassword());
-            user.setPassword(passwordEncoded);
-            user.setImageData(ImageDataUtil.compressImage(file.getBytes()));
-            userRepository.save(user);
-
-
-    }
-
-
     public Collection<User> getAllUsers(){
         return userRepository.findAll();
     }
@@ -89,7 +72,6 @@ public class UserService {
             String passwordEncoded = bcrypt.encode(userFromDb.getPassword());
             userFromDb.setPassword(passwordEncoded);
             userFromDb.setPhone(user.getPhone());
-            userFromDb.setImageData(user.getImageData());
             userFromDb.setBio(user.getBio());
             userFromDb.setRole(user.getRole());
             userRepository.save(userFromDb);
@@ -129,3 +111,26 @@ public class UserService {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+ /* public void UpdateUserWithImage( MultipartFile file, User user) throws IOException {
+        Optional<User> userByEmail = userRepository
+                .findByEmail(user.getEmail());
+        Optional<User> userByPhone = userRepository
+                .findByPhone(user.getPhone());
+            String passwordEncoded = bcrypt.encode(user.getPassword());
+            user.setPassword(passwordEncoded);
+            user.setImageData(ImageDataUtil.compressImage(file.getBytes()));
+            userRepository.save(user);
+
+
+    }*/

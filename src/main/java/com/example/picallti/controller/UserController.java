@@ -102,12 +102,12 @@ public class UserController {
 
 
     @DeleteMapping(value = "/remove/{id}")
-    public ResponseEntity<Integer> deleteImageById(@PathVariable Integer id) {
+    public void deleteUserById(@PathVariable Integer id) {
         if (userService.getUserById(id).isPresent()){
             userService.removeUserById(id);
-            return new ResponseEntity<>(id, HttpStatus.OK);}
+            System.out.println(HttpStatus.OK);}
         else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            System.out.println(HttpStatus.NOT_FOUND);
         }
     }
 

@@ -6,9 +6,12 @@ import com.example.picallti.model.VehiculeType;
 import com.example.picallti.repository.OffreRepository;
 import com.example.picallti.repository.UserRepository;
 import com.example.picallti.repository.VehiculeTypeRepository;
+import com.example.picallti.util.ImageDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
@@ -31,11 +34,11 @@ public class OffreService {
         return offreRepository.findAll();
     }
 
-    public Offre getOffreById(int id) {
+    public Optional<Offre> getOffreById(int id) {
         System.out.println("****************");
         System.out.println(id);
         System.out.println("****************");
-        return offreRepository.findById(id).get();
+        return offreRepository.findById(id);
     }
 
     public Collection<Offre> getOffersByUser(int id) {
@@ -59,6 +62,11 @@ public class OffreService {
 
     }
 
+    public byte[] downloadImage(byte[] imageData){
+        byte[] images = ImageDataUtil.decompressImage(imageData);
+        return images;
+    }
+
     public void updateOffre(Offre offre) {
         Offre offre1 = offreRepository.findById(offre.getId()).get();
         if (offre1 != null) {
@@ -68,6 +76,22 @@ public class OffreService {
             offre1.setPrix(offre.getPrix());
             offre1.setTime(offre.getTime());
             offre1.setImageData(offre.getImageData());
+            offre1.setUser(offre.getUser());
+            offre1.setlocaLDate(offre.getlocaLDate());
+            offre1.setTitre(offre.getTitre());
+            offre1.setVehicule(offre.getVehicule());
+            offreRepository.save(offre1);
+        }
+    }
+
+    public void updateWithImage(Offre offre, MultipartFile file) throws IOException {
+        Offre offre1 = offreRepository.findById(offre.getId()).get();
+        if (offre1 != null) {
+            offre1.setDescription(offre.getDescription());
+            offre1.setOperation(offre.getOperation());
+            offre1.setPrix(offre.getPrix());
+            offre1.setTime(offre.getTime());
+            offre1.setImageData(ImageDataUtil.compressImage(file.getBytes()));
             offre1.setUser(offre.getUser());
             offre1.setlocaLDate(offre.getlocaLDate());
             offre1.setTitre(offre.getTitre());

@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
@@ -53,7 +54,7 @@ class OffreControllerTest {
         final int offreId = 1;
         final Offre offre = new Offre(1,"Titre1", "The characteristics of someone or something","operation", 10.0f,"https://example.org/example",null,null, "rabat" );
 
-        given(offreService.getOffreById(offreId)).willReturn(offre);
+        given(offreService.getOffreById(offreId)).willReturn(Optional.of(offre));
         this.mockMvc.perform(get("/offers/getById/{id}",offreId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.titre", is(offre.getTitre())))
