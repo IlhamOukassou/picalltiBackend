@@ -123,4 +123,8 @@ public class OffreService {
         return offreRepository.filterOffresByPrix(min,max);
     }
 
+    public Collection<Offre> findInTitleLike(String titre){
+        return offreRepository.getOffreByTitreContainingIgnoreCase(titre);
+    }
+
 }
