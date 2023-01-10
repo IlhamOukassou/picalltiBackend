@@ -44,8 +44,8 @@ public class OffreController {
         return offre;
     }
 
-    @RequestMapping("remove/{id}")
-    public void removeOffreById(@PathVariable int id)
+    @RequestMapping("remove")
+    public void removeOffreById(@RequestParam int id)
     {
         offreService.removeById(id);
     }
