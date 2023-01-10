@@ -10,7 +10,7 @@ public class Offre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer imageId;
+    private Long imageId;
     private String titre;
     private String description;
     private String localisation;
@@ -29,11 +29,10 @@ public class Offre {
     @ManyToOne
     private Vehicule vehicule;
 
-
-    private String url;
+    //private String url;
     private String locaLDate;
 
-    public Offre(Integer id, Integer imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
+    public Offre(Integer id, Long imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
         this.id = id;
         this.imageId = imageId;
         this.titre = titre;
@@ -49,7 +48,7 @@ public class Offre {
 
     }
 
-    public Offre( Integer imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
+    public Offre( Long imageId, String titre, String description, String localisation, float prix, String time, String operation, User user,Vehicule vehicule,String locaLDate,String ville) {
         this.imageId = imageId;
         this.titre = titre;
         this.description = description;
@@ -64,7 +63,7 @@ public class Offre {
 
     }
 
-    public Offre(int id, String titre, String description, String operation, float prix, String url, User owner, Vehicule vehicule,String ville) {
+    public Offre(int id, String titre, String description, String operation, float prix, User owner, Vehicule vehicule,String ville) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -72,38 +71,34 @@ public class Offre {
         this.prix = prix;
         this.user = owner;
         this.vehicule = vehicule;
-        this.url = url;
         this.ville = ville;
 
     }
 
-    public Offre(String titre, String description, String operation, float prix, String url, User owner, Vehicule vehicule,String ville) {
+    public Offre(String titre, String description, String operation, float prix, User owner, Vehicule vehicule,String ville) {
         this.titre = titre;
         this.description = description;
         this.operation = operation;
         this.prix = prix;
         this.user = owner;
         this.vehicule = vehicule;
-        this.url = url;
         this.ville = ville;
 
     }
-    public Offre(String titre, String operation,float prix,String description,  String url, User owner, Vehicule vehicule,String ville) {
+    public Offre(String titre, String operation,float prix,String description, User owner, Vehicule vehicule,String ville) {
         this.titre = titre;
         this.description = description;
         this.operation = operation;
         this.prix = prix;
         this.user = owner;
         this.vehicule = vehicule;
-        this.url = url;
         this.ville = ville;
 
     }
-    public Offre(String titre, String description, float prix, String url,String ville ){
+    public Offre(String titre, String description, float prix,String ville ){
         this.titre = titre;
         this.description = description;
         this.prix = prix;
-        this.url = url;
         this.ville = ville;
     }
 
@@ -115,7 +110,7 @@ public class Offre {
         return id;
     }
 
-    public Integer getImageId() {
+    public Long getImageId() {
         return imageId;
     }
 
@@ -139,7 +134,7 @@ public class Offre {
         return time;
     }
 
-    public void setImageId(Integer imageId) {
+    public void setImageId(Long imageId) {
         this.imageId = imageId;
     }
 
@@ -219,13 +214,6 @@ public class Offre {
                 '}';
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     public String getVille() {
         return ville;

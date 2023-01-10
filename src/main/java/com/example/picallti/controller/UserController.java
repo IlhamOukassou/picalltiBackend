@@ -7,9 +7,12 @@ import com.example.picallti.repository.UserRepository;
 import com.example.picallti.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -19,6 +22,8 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     public UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
 
     @RequestMapping(value = "add",method = RequestMethod.POST)
@@ -26,6 +31,23 @@ public class UserController {
            userService.addUser(user);
 
     }
+
+
+
+    // Setting the pp of the user :
+    @GetMapping(value = "downloadImage")
+    public ResponseEntity<?> downloadImage(@RequestParam int id){
+        Optional<User> userdb = userService.getUserById(id);
+        if (userdb.isPresent()){
+            byte[] imageData = userService.downloadImage(userdb.get().getImageData());
+            return  ResponseEntity.status(HttpStatus.OK)
+                    .contentType(MediaType.valueOf("image/png"))
+                    .body(imageData);
+        }
+        return null;
+    }
+
+
     @RequestMapping(value = "getAll")
     public Collection<User> getAllUsers(){
         return userService.getAllUsers();
@@ -39,6 +61,8 @@ public class UserController {
             return null;
         }
     }
+
+
     @RequestMapping(value = "getByEmail")
     public User getUserByEmail(@RequestParam String email){
         if (userService.getUserByEmail(email).isPresent()){
@@ -58,15 +82,29 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "remove")
-    public User removeUser(@RequestParam int id){
+    // Changing the profile image :
+    @PostMapping(value = "updateWithImage/{id}")
+    public User updateUserWithImage(@PathVariable Integer id,
+                                    @RequestParam("image")MultipartFile file ) throws IOException {
+
         if (userService.getUserById(id).isPresent()){
-            userService.removeUserById(id);
-            return userService.getUserById(id).get();
+            User userdb = userService.getUserById(id).get();
+            userService.updateWithImage(userdb, file);
+            return userdb;
         }else{
             throw new RuntimeException("user not found");
         }
+    }
 
+
+    @DeleteMapping(value = "/remove/{id}")
+    public void deleteUserById(@PathVariable Integer id) {
+        if (userService.getUserById(id).isPresent()){
+            userService.removeUserById(id);
+            System.out.println(HttpStatus.OK);}
+        else {
+            System.out.println(HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "existsByEmail")

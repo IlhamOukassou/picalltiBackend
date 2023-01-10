@@ -2,129 +2,94 @@ package com.example.picallti.controller;
 
 import com.example.picallti.model.*;
 import com.example.picallti.service.FavorisService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.hamcrest.CoreMatchers.is;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 
-@WebMvcTest(controllers = FavorisController.class)
-@ActiveProfiles("test")
-class FavorisControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-    @MockBean
+@ExtendWith(MockitoExtension.class)
+public class FavorisControllerTest {
+
+
+    @Mock
     private FavorisService favorisService;
-
     @Autowired
     private FavorisController favorisController;
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    private List<Favoris> favorisList;
-    private User userTest;
 
 
     @BeforeEach
     void setUp() {
         favorisController = new FavorisController(favorisService);
-        this.favorisList = new ArrayList<>();
-        //random object values
-        VehiculeType vehiculetypeTest = new VehiculeType(1, "BMW");
-        Vehicule vehiculeTest = new Vehicule("BMW", vehiculetypeTest);
-        userTest = new User("Fadili", "Ayoub", "Male", "test@gmail.com", 660553514, "1234", "img", "test", "test");
-        Offre offreTest = new Offre("test", "test", "test3", 10, "test", userTest, vehiculeTest, "rabat");
-        Offre offreTest2 = new Offre("test2", "test", "test3", 10, "test", userTest, vehiculeTest, "rabat");
-        Favoris testFavoris = new Favoris(1, userTest, offreTest);
-        Favoris testFavoris2 = new Favoris(2, userTest, offreTest2);
-        this.favorisList.add(testFavoris);
-        this.favorisList.add(testFavoris2);
-
-
     }
 
     @Test
-    void ShouldFetchAllFavoris() throws Exception {
-
-        given(favorisService.findAllFavoris()).willReturn(favorisList);
-        this.mockMvc.perform(get("/favoris/all"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()", is(favorisList.size())));
+    void getAllFavoris(){
+        Favoris favoris1 = new Favoris();
+        Favoris favoris2 = new Favoris();
+        Favoris favoris3 = new Favoris();
+        List<Favoris> mockFavoris = new ArrayList<>();
+        mockFavoris.addAll(List.of(favoris1,favoris2,favoris3));
+        ResponseEntity<List<Favoris>> mockFavorisEntity = new ResponseEntity<>(mockFavoris, HttpStatus.OK);
+        when(favorisService.findAllFavoris()).thenReturn(mockFavoris);
+        ResponseEntity<List<Favoris>> favoris = favorisController.getAllFavoris();
+        assertEquals(mockFavorisEntity,favoris);
+        verify(favorisService).findAllFavoris();
     }
 
     @Test
-    void shouldFetchOneFavorisById() throws Exception {
-        final int favorisId = 1;
-        String str = "1986-04-08 12:30";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
-        final Favoris testFavoris = new Favoris(favorisId, null, null, dateTime);
+    void deleteFavoris(){
+        Offre offre = new Offre();
+        User user = new User();
 
-
-        given(favorisService.findFavorisById(favorisId)).willReturn(testFavoris);
-
-        this.mockMvc.perform(get("/favoris/find/{id}", favorisId))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(testFavoris.getId())));
+        int favorisId = 1;
+        Favoris mockFavoris = new Favoris(favorisId,user,offre);
+        doNothing().when(favorisService).deleteFavoris(mockFavoris);
+        favorisController.remove(mockFavoris);
+        verify(favorisService).deleteFavoris(mockFavoris);
     }
 
     @Test
-    void shouldCreateNewFavoris() throws Exception {
-        given(favorisService.addFavoris(any(Favoris.class))).willAnswer((invocation) -> invocation.getArgument(0));
-
-        final int favorisId = 1;
-        String str = "1986-04-08 12:30";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
-        final Favoris testFavoris = new Favoris(favorisId, null, null, dateTime);
-
-        this.mockMvc.perform(post("/favoris/add")
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content(objectMapper.writeValueAsString(testFavoris)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(testFavoris.getId())))
-        ;
-
+    void addFavoris(){
+        Offre offre = new Offre();
+        User user = new User();
+        Favoris mockFavoris = new Favoris(1,user,offre);
+        ResponseEntity<Favoris> mockFavorisEntity = new ResponseEntity<>(mockFavoris,HttpStatus.CREATED);
+        when(favorisService.addFavoris(mockFavoris)).thenReturn(mockFavoris);
+        ResponseEntity<Favoris> favoris = favorisController.addFavoris(mockFavoris);
+        assertEquals(mockFavorisEntity,favoris);
+        verify(favorisService).addFavoris(mockFavoris);
     }
 
     @Test
-    void shouldDeleteFavoris() throws Exception {
-        final int favorisId = 1;
-        String str = "1986-04-08 12:30";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
-        final Favoris testFavoris = new Favoris(favorisId, null, null, dateTime);
-        doNothing().when(favorisService).deleteFavoris(testFavoris.getId());
-
-        this.mockMvc.perform(delete("/favoris/delete/{id}", testFavoris.getId()))
-                .andExpect(status().isOk());
+    void findAllFavorisByUser(){
+        User user = new User();
+        Offre offre = new Offre();
+        Offre offre2 = new Offre();
+        Favoris mockFavoris1 = new Favoris(1,user,offre);
+        Favoris mockFavoris2 = new Favoris(2,user,offre2);
+        List<Favoris> favorisList = new ArrayList<>();
+        favorisList.addAll(List.of(mockFavoris1,mockFavoris2));
+        ResponseEntity<Optional<List<Favoris>>> mockFavorisListEntity = new ResponseEntity<Optional<List<Favoris>>>(Optional.of(favorisList), HttpStatus.OK);
+        when(favorisService.findByUser(user.getId())).thenReturn(Optional.of(favorisList));
+        ResponseEntity<Optional<List<Favoris>>> favoris = favorisController.getFavorisByUser(user.getId());
+        assertEquals(mockFavorisListEntity,favoris);
+        verify(favorisService).findByUser(user.getId());
     }
 
-    @Test
-    void shouldFetchFavorisByUser() throws Exception {
-
-        given(favorisService.findByUser(userTest.getId())).willReturn(Optional.ofNullable(favorisList));
-
-        this.mockMvc.perform(get("/favoris/findallbyuser?id={id}", userTest.getId()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()", is(favorisList.size())));
-
-    }
 }
+
 

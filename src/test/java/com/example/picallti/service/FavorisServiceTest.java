@@ -1,5 +1,6 @@
 package com.example.picallti.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -127,7 +128,7 @@ class FavorisServiceTest {
         Optional<List<Favoris>> ofResult = Optional.of(new ArrayList<>());
         when(favorisRepository.findByUser((User) any())).thenReturn(ofResult);
         when(userRepository.findById((Integer) any())).thenReturn(
-                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role")));
+                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou")));
         Optional<List<Favoris>> actualFindByUserResult = favorisService.findByUser(1);
         assertSame(ofResult, actualFindByUserResult);
         assertTrue(actualFindByUserResult.isPresent());
@@ -142,30 +143,12 @@ class FavorisServiceTest {
     void testFindByUser2() {
         when(favorisRepository.findByUser((User) any())).thenThrow(new FavorisNotFoundException("An error occurred"));
         when(userRepository.findById((Integer) any())).thenReturn(
-                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role")));
+                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou")));
         assertThrows(FavorisNotFoundException.class, () -> favorisService.findByUser(1));
         verify(favorisRepository).findByUser((User) any());
         verify(userRepository).findById((Integer) any());
     }
 
-    /**
-     * Method under test: {@link FavorisService#findByUser(int)}
-     */
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testFindByUser3() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "java.util.Optional.get()" because the return value of "com.example.picallti.repository.UserRepository.findById(Object)" is null
-        //       at com.example.picallti.service.FavorisService.findByUser(FavorisService.java:34)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        when(favorisRepository.findByUser((User) any())).thenReturn(Optional.of(new ArrayList<>()));
-        when(userRepository.findById((Integer) any())).thenReturn(null);
-        favorisService.findByUser(1);
-    }
 
     /**
      * Method under test: {@link FavorisService#updateFavoris(Favoris)}
@@ -212,76 +195,151 @@ class FavorisServiceTest {
         verify(favoris).getUser();
     }
 
-    /**
-     * Method under test: {@link FavorisService#updateFavoris(Favoris)}
-     */
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testUpdateFavoris4() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "java.util.Optional.get()" because the return value of "com.example.picallti.repository.FavorisRepository.findById(Object)" is null
-        //       at com.example.picallti.service.FavorisService.updateFavoris(FavorisService.java:43)
-        //   See https://diff.blue/R013 to resolve this issue.
 
-        when(favorisRepository.save((Favoris) any())).thenReturn(new Favoris());
-        when(favorisRepository.findById((Integer) any())).thenReturn(null);
-        new FavorisNotFoundException("An error occurred");
-        new FavorisNotFoundException("An error occurred");
-        new FavorisNotFoundException("An error occurred");
-        new FavorisNotFoundException("An error occurred");
-        new FavorisNotFoundException("An error occurred");
-        new FavorisNotFoundException("An error occurred");
-        favorisService.updateFavoris(new Favoris());
-    }
 
     /**
-     * Method under test: {@link FavorisService#updateFavoris(Favoris)}
-     */
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testUpdateFavoris5() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "com.example.picallti.model.Favoris.getId()" because "favoris" is null
-        //       at com.example.picallti.service.FavorisService.updateFavoris(FavorisService.java:43)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        Favoris favoris = mock(Favoris.class);
-        when(favoris.getOffre()).thenThrow(new FavorisNotFoundException("An error occurred"));
-        when(favoris.getUser()).thenThrow(new FavorisNotFoundException("An error occurred"));
-        when(favoris.getlocaLDate()).thenThrow(new FavorisNotFoundException("An error occurred"));
-        doThrow(new FavorisNotFoundException("An error occurred")).when(favoris).setLocalDateTime((LocalDateTime) any());
-        doThrow(new FavorisNotFoundException("An error occurred")).when(favoris).setOffre((Offre) any());
-        doThrow(new FavorisNotFoundException("An error occurred")).when(favoris).setUser((User) any());
-        Optional<Favoris> ofResult = Optional.of(favoris);
-        when(favorisRepository.save((Favoris) any())).thenReturn(new Favoris());
-        when(favorisRepository.findById((Integer) any())).thenReturn(ofResult);
-        favorisService.updateFavoris(null);
-    }
-
-    /**
-     * Method under test: {@link FavorisService#deleteFavoris(int)}
+     * Method under test: {@link FavorisService#deleteFavoris(Favoris)}
      */
     @Test
     void testDeleteFavoris() {
-        doNothing().when(favorisRepository).deleteById((Integer) any());
-        favorisService.deleteFavoris(1);
-        verify(favorisRepository).deleteById((Integer) any());
+        when(favorisRepository.findByUser((User) any())).thenReturn(Optional.of(new ArrayList<>()));
+        Favoris favoris = new Favoris();
+        favorisService.deleteFavoris(favoris);
+        verify(favorisRepository).findByUser((User) any());
+        assertEquals(0, favoris.getId());
+    }
+
+
+
+    /**
+     * Method under test: {@link FavorisService#deleteFavoris(Favoris)}
+     */
+    @Test
+    void testDeleteFavoris5() {
+        when(favorisRepository.findByUser((User) any())).thenReturn(Optional.of(new ArrayList<>()));
+        Favoris favoris = mock(Favoris.class);
+        when(favoris.getUser()).thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
+        favorisService.deleteFavoris(favoris);
+        verify(favorisRepository).findByUser((User) any());
+        verify(favoris).getUser();
     }
 
     /**
-     * Method under test: {@link FavorisService#deleteFavoris(int)}
+     * Method under test: {@link FavorisService#deleteFavoris(Favoris)}
      */
     @Test
-    void testDeleteFavoris2() {
-        doThrow(new FavorisNotFoundException("An error occurred")).when(favorisRepository).deleteById((Integer) any());
-        assertThrows(FavorisNotFoundException.class, () -> favorisService.deleteFavoris(1));
+    void testDeleteFavoris6() {
+        ArrayList<Favoris> favorisList = new ArrayList<>();
+        favorisList.add(new Favoris(new Offre("Titre", "The characteristics of someone or something", 10.0f, "Ville")));
+        Optional<List<Favoris>> ofResult = Optional.of(favorisList);
+        doNothing().when(favorisRepository).deleteById((Integer) any());
+        when(favorisRepository.findByUser((User) any())).thenReturn(ofResult);
+        Favoris favoris = mock(Favoris.class);
+        when(favoris.getOffre()).thenReturn(new Offre("Titre", "The characteristics of someone or something", 10.0f, "Ville"));
+        when(favoris.getUser()).thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
+        favorisService.deleteFavoris(favoris);
+        verify(favorisRepository).findByUser((User) any());
         verify(favorisRepository).deleteById((Integer) any());
+        verify(favoris).getOffre();
+        verify(favoris).getUser();
     }
+
+    /**
+     * Method under test: {@link FavorisService#deleteFavoris(Favoris)}
+     */
+    @Test
+    void testDeleteFavoris7() {
+        ArrayList<Favoris> favorisList = new ArrayList<>();
+        favorisList.add(new Favoris(new Offre("Titre", "The characteristics of someone or something", 10.0f, "Ville")));
+        Optional<List<Favoris>> ofResult = Optional.of(favorisList);
+        doThrow(new FavorisNotFoundException("An error occurred")).when(favorisRepository).deleteById((Integer) any());
+        when(favorisRepository.findByUser((User) any())).thenReturn(ofResult);
+        Favoris favoris = mock(Favoris.class);
+        when(favoris.getOffre()).thenReturn(new Offre("Titre", "The characteristics of someone or something", 10.0f, "Ville"));
+        when(favoris.getUser()).thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
+        assertThrows(FavorisNotFoundException.class, () -> favorisService.deleteFavoris(favoris));
+        verify(favorisRepository).findByUser((User) any());
+        verify(favorisRepository).deleteById((Integer) any());
+        verify(favoris).getOffre();
+        verify(favoris).getUser();
+    }
+
+    /**
+     * Method under test: {@link FavorisService#deleteFavoris(Favoris)}
+     */
+    @Test
+    void testDeleteFavoris8() {
+        Offre offre = mock(Offre.class);
+        when(offre.getId()).thenReturn(1);
+        Favoris e = new Favoris(offre);
+
+        ArrayList<Favoris> favorisList = new ArrayList<>();
+        favorisList.add(e);
+        Optional<List<Favoris>> ofResult = Optional.of(favorisList);
+        doNothing().when(favorisRepository).deleteById((Integer) any());
+        when(favorisRepository.findByUser((User) any())).thenReturn(ofResult);
+        Favoris favoris = mock(Favoris.class);
+        when(favoris.getOffre()).thenReturn(new Offre("Titre", "The characteristics of someone or something", 10.0f, "Ville"));
+        when(favoris.getUser()).thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
+        favorisService.deleteFavoris(favoris);
+        verify(favorisRepository).findByUser((User) any());
+        verify(offre).getId();
+        verify(favoris).getOffre();
+        verify(favoris).getUser();
+    }
+
+
+    /**
+     * Method under test: {@link FavorisService#deleteFavoris(Favoris)}
+     */
+    @Test
+    void testDeleteFavoris10() {
+        Favoris favoris = mock(Favoris.class);
+        when(favoris.getId()).thenReturn(1);
+        when(favoris.getOffre()).thenReturn(new Offre("Titre", "The characteristics of someone or something", 10.0f, "Ville"));
+
+        ArrayList<Favoris> favorisList = new ArrayList<>();
+        favorisList.add(favoris);
+        Optional<List<Favoris>> ofResult = Optional.of(favorisList);
+        doNothing().when(favorisRepository).deleteById((Integer) any());
+        when(favorisRepository.findByUser((User) any())).thenReturn(ofResult);
+        Favoris favoris1 = mock(Favoris.class);
+        when(favoris1.getOffre()).thenReturn(new Offre("Titre", "The characteristics of someone or something", 10.0f, "Ville"));
+        when(favoris1.getUser()).thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
+        favorisService.deleteFavoris(favoris1);
+        verify(favorisRepository).findByUser((User) any());
+        verify(favorisRepository).deleteById((Integer) any());
+        verify(favoris).getOffre();
+        verify(favoris).getId();
+        verify(favoris1).getOffre();
+        verify(favoris1).getUser();
+    }
+
+    /**
+     * Method under test: {@link FavorisService#deleteFavoris(Favoris)}
+     */
+    @Test
+    void testDeleteFavoris11() {
+        Favoris favoris = mock(Favoris.class);
+        when(favoris.getId()).thenThrow(new FavorisNotFoundException("An error occurred"));
+        when(favoris.getOffre()).thenReturn(new Offre("Titre", "The characteristics of someone or something", 10.0f, "Ville"));
+
+        ArrayList<Favoris> favorisList = new ArrayList<>();
+        favorisList.add(favoris);
+        Optional<List<Favoris>> ofResult = Optional.of(favorisList);
+        doNothing().when(favorisRepository).deleteById((Integer) any());
+        when(favorisRepository.findByUser((User) any())).thenReturn(ofResult);
+        Favoris favoris1 = mock(Favoris.class);
+        when(favoris1.getOffre()).thenReturn(new Offre("Titre", "The characteristics of someone or something", 10.0f, "Ville"));
+        when(favoris1.getUser()).thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
+        assertThrows(FavorisNotFoundException.class, () -> favorisService.deleteFavoris(favoris1));
+        verify(favorisRepository).findByUser((User) any());
+        verify(favoris).getOffre();
+        verify(favoris).getId();
+        verify(favoris1).getOffre();
+        verify(favoris1).getUser();
+    }
+
+
 }
 

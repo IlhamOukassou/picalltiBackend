@@ -1,8 +1,10 @@
 package com.example.picallti.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity
+@Builder
 public class User {
 
     @Id
@@ -16,12 +18,14 @@ public class User {
     private String email;
     private int phone;
     private String password;
-    private String imageName;
+    @Lob
+    @Column(name = "file", columnDefinition = "LONGBLOB")
+    private byte[] imageData;
     private String bio;
     private String role;
 
 
-    public User(int id, String nom, String prenom, String genre, String email, int phone, String password, String imageName, String bio, String role) {
+    public User(int id, String nom, String prenom, String genre, String email, int phone, String password, byte[] imageData, String bio, String role) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -29,30 +33,30 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.imageName = imageName;
+        this.imageData = imageData;
         this.bio = bio;
         this.role = role;
     }
-    public User(String nom, String prenom, String genre, String email, int phone, String password, String imageName, String bio, String role) {
+    public User(String nom, String prenom, String genre, String email, int phone, String password, byte[] imageData, String bio, String role) {
         this.nom = nom;
         this.prenom = prenom;
         this.genre = genre;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.imageName = imageName;
+        this.imageData = imageData;
         this.bio = bio;
         this.role = role;
     }
 
-    public User(String nom, String prenom, String genre, String email, int phone, String password, String imageName, String role) {
+    public User(String nom, String prenom, String genre, String email, int phone, String password, byte[] imageData, String role) {
         this.nom = nom;
         this.prenom = prenom;
         this.genre = genre;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.imageName = imageName;
+        this.imageData = imageData;
         this.role = role;
     }
 
@@ -64,24 +68,24 @@ public class User {
         this.phone = phone;
         this.password = password;
     }
-    public User(String nom, String prenom, String genre, String email, int phone, String bio, String imageName) {
+    public User(String nom, String prenom, String genre, String email, int phone, String bio, byte[] imageData) {
         this.nom = nom;
         this.prenom = prenom;
         this.genre = genre;
         this.email = email;
         this.phone = phone;
         this.bio = bio;
-        this.imageName = imageName;
+        this.imageData = imageData;
     }
 
-    public User(String nom, String prenom, String email, int phone, String bio ,String imageName) {
+    public User(String nom, String prenom, String email, int phone, String bio ,byte[] imageData) {
         this.nom = nom;
         this.prenom = prenom;
         this.genre = genre;
         this.email = email;
         this.phone = phone;
         this.bio = bio;
-        this.imageName= imageName;
+        this.imageData = imageData;
     }
     public User() {
 
@@ -143,12 +147,12 @@ public class User {
         this.password = password;
     }
 
-    public String getImageName() {
-        return imageName;
+    public byte[] getImageData() {
+        return imageData;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
 
     public String getBio() {
