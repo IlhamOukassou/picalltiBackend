@@ -1,5 +1,6 @@
 package com.example.picallti.controller;
 
+import com.example.picallti.model.Favoris;
 import com.example.picallti.model.Notification;
 import com.example.picallti.model.User;
 import com.example.picallti.repository.NotificationRepository;
@@ -14,17 +15,20 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.HttpClientErrorException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,69 +38,50 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(MockitoExtension.class)
-class NotificationControllerTest {
-
+public class NotificationControllerTest {
     @Mock
-    private NotificationRepository notificationRepository;
-
     private NotificationService notificationService;
-
+    @Autowired
     private NotificationController notificationController;
-
-    private AutoCloseable autoCloseable;
-
-
 
     @BeforeEach
     void setUp(){
-        AutoCloseable autoCloseable1 = MockitoAnnotations.openMocks(this);
-        notificationController = new NotificationController();
-        notificationService = new NotificationService();
-        notificationService.notificationRepository = notificationRepository;
-        notificationController.notificationService = notificationService;
-
+         notificationController = new NotificationController(notificationService);
     }
-
-    @AfterEach
-    void tearDown() throws Exception{
-        //autoCloseable.close();
+    @Test
+    void getAllNotifications(){
+        Notification notif1 = new Notification();
+        Notification notif2 = new Notification();
+        Notification notif3 = new Notification();
+        List<Notification> mockNotif = new ArrayList<>();
+        mockNotif.addAll(List.of(notif1,notif2,notif3));
+        ResponseEntity<List<Notification>> mockNotifEntity = new ResponseEntity<>(mockNotif, HttpStatus.OK);
+        when(notificationService.findAllNotification()).thenReturn(mockNotif);
+        ResponseEntity<List<Notification>> notifs = notificationController.getAllNotifications();
+        assertEquals(mockNotifEntity,notifs);
+        verify(notificationService).findAllNotification();
+    }
+    @Test
+    void addNotification(){
+        Notification mockNotif = new Notification();
+        ResponseEntity<Notification> mockNotifEntity = new ResponseEntity<>(mockNotif,HttpStatus.CREATED);
+        when(notificationService.addNotification(mockNotif)).thenReturn(mockNotif);
+        ResponseEntity<Notification> notif = notificationController.addNotification(mockNotif);
+        assertEquals(mockNotifEntity,notif);
+        verify(notificationService).addNotification(mockNotif);
     }
 
     @Test
-    void canAddNotification(){
-        User userTest = new User();
-        Notification notification = new Notification(1, "title", "text", 1, userTest, LocalTime.now(), LocalDate.of(2022, Month.JULY, 9) );
-
-        notificationController.addNotification(notification);
-
-
-        ArgumentCaptor<Notification> argumentCaptor = ArgumentCaptor.forClass(Notification.class);
-        verify(notificationRepository).save(argumentCaptor.capture());
-
-        Notification notification1 = argumentCaptor.getValue();
-        assertThat(notification1).isEqualTo(notification);
-    }
-
-    @Test
-    void canFindAllNotification(){
-
-
-        notificationController.getAllNotifications();
-        verify(notificationRepository).findAll();
-    }
-
-    @Test
-    void canFindNotificationByUser() throws Exception{
-/*
-        Notification mockNotification = new Notification();
+    void findNotificationByUser(){
         User user = new User();
-        mockNotification.setUser(user);
-        lenient().when(notificationRepository.existsById(user.getId())).thenReturn(true);
-        lenient().when(notificationRepository.findById(user.getId())).thenReturn(Optional.of(mockNotification));
-
-
-        ResponseEntity<List<Notification>> notification = notificationController.getNotificationByUser(user.getId());
-        assertEquals(mockNotification,notification);*/
+        Notification notif1 = new Notification("title","text","time","date",user);
+        Notification notif2 = new Notification("title2","text2","time2","date2",user);
+        List<Notification> mockNotifs = new ArrayList<>();
+        ResponseEntity<List<Notification>> mockNotifsEntity = new ResponseEntity<>(mockNotifs,HttpStatus.OK);
+        when(notificationService.findByUser(user.getId())).thenReturn(mockNotifs);
+        ResponseEntity<List<Notification>> notifs = notificationController.getNotificationByUser(user.getId());
+        assertEquals(mockNotifsEntity,notifs);
+        verify(notificationService).findByUser(user.getId());
     }
 
 
