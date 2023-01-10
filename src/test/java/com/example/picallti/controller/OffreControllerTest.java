@@ -36,9 +36,9 @@ class OffreControllerTest {
     @BeforeEach
     void setUp(){
         this.offreList = new ArrayList<>();
-        this.offreList.add(new Offre(1,"Titre1", "The characteristics of someone or something","operation", 10.0f,"https://example.org/example",null,null, "rabat" ));
-        this.offreList.add(new Offre(2,"Titre2", "The characteristics of someone or something","operation", 20.0f,"https://example.org/example",null,null, "rabat"));
-        this.offreList.add(new Offre(3,"Titre3", "The characteristics of someone or something","operation", 30.0f,"https://example.org/example",null,null, "rabat"));
+        this.offreList.add(new Offre(1,"Titre1", "The characteristics of someone or something","operation", 10.0f,null,null, "rabat" ));
+        this.offreList.add(new Offre(2,"Titre2", "The characteristics of someone or something","operation", 20.0f,null,null, "rabat"));
+        this.offreList.add(new Offre(3,"Titre3", "The characteristics of someone or something","operation", 30.0f,null,null, "rabat"));
     }
 
     @Test
@@ -52,7 +52,7 @@ class OffreControllerTest {
     @Test
     void shouldFetchOneOfferById() throws Exception {
         final int offreId = 1;
-        final Offre offre = new Offre(1,"Titre1", "The characteristics of someone or something","operation", 10.0f,"https://example.org/example",null,null, "rabat" );
+        final Offre offre = new Offre(1,"Titre1", "The characteristics of someone or something","operation", 10.0f,null,null, "rabat" );
 
         given(offreService.getOffreById(offreId)).willReturn(Optional.of(offre));
         this.mockMvc.perform(get("/offers/getById/{id}",offreId))

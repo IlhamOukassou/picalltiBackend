@@ -67,7 +67,7 @@ class NotificationServiceTest {
         ArrayList<Notification> notificationList = new ArrayList<>();
         when(notificationRepository.findByUser((User) any())).thenReturn(notificationList);
         when(userRepository.findById((Integer) any()))
-                .thenReturn(Optional.of(new User("Nom", "Prenom", "jane.doe@example.org", 1, "Bio", "Image Name")));
+                .thenReturn(Optional.of(new User("Nom", "Prenom","F", "jane.doe@example.org", 0615152424, "Bio")));
         List<Notification> actualFindByUserResult = notificationService.findByUser(1);
         assertSame(notificationList, actualFindByUserResult);
         assertTrue(actualFindByUserResult.isEmpty());

@@ -39,14 +39,13 @@ class UserServiceTest {
     @Test
     void testAddUser() {
         when(userRepository.save((User) any()))
-                .thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role"));
-        User user = new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role");
+                .thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
+        User user = new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou");
 
         userService.addUser(user);
         verify(userRepository).save((User) any());
         assertEquals("Role", user.getRole());
         assertEquals("Prenom", user.getPrenom());
-        assertEquals(1, user.getImageName());
         assertEquals(1, user.getPhone());
         assertEquals("iloveyou", user.getPassword());
         assertEquals("Nom", user.getNom());
@@ -75,7 +74,7 @@ class UserServiceTest {
     @Test
     void testGetUserById() {
         Optional<User> ofResult = Optional
-                .of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role"));
+                .of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
         when(userRepository.findById((Integer) any())).thenReturn(ofResult);
        User actualUserById = userService.getUserById(1).get();
         assertSame(ofResult, actualUserById);
@@ -89,7 +88,7 @@ class UserServiceTest {
     @Test
     void testGetUserByEmail() {
         Optional<User> ofResult = Optional
-                .of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role"));
+                .of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
         when(userRepository.findByEmail((String) any())).thenReturn(ofResult);
         Optional<User> actualUserByEmail = userService.getUserByEmail("jane.doe@example.org");
         assertSame(ofResult, actualUserByEmail);
@@ -103,10 +102,10 @@ class UserServiceTest {
     @Test
     void testUpdate() {
         when(userRepository.save((User) any()))
-                .thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role"));
+                .thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
         when(userRepository.findById((Integer) any())).thenReturn(
-                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role")));
-        userService.update(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role"));
+                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou")));
+        userService.update(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
         verify(userRepository).save((User) any());
         verify(userRepository).findById((Integer) any());
     }
@@ -126,9 +125,9 @@ class UserServiceTest {
         //   See https://diff.blue/R013 to resolve this issue.
 
         when(userRepository.save((User) any()))
-                .thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role"));
+                .thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
         when(userRepository.findById((Integer) any())).thenReturn(null);
-        userService.update(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role"));
+        userService.update(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
     }
 
     /**
@@ -146,9 +145,9 @@ class UserServiceTest {
         //   See https://diff.blue/R013 to resolve this issue.
 
         when(userRepository.save((User) any()))
-                .thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role"));
+                .thenReturn(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou"));
         when(userRepository.findById((Integer) any())).thenReturn(
-                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role")));
+                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou")));
         userService.update(null);
     }
 

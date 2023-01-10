@@ -29,9 +29,6 @@ public class Offre {
     @ManyToOne
     private Vehicule vehicule;
 
-    @Lob
-    @Column(name = "file", columnDefinition = "LONGBLOB")
-    private byte[] imageData;
     //private String url;
     private String locaLDate;
 
@@ -66,7 +63,7 @@ public class Offre {
 
     }
 
-    public Offre(int id, String titre, String description, String operation, float prix, byte[] imageData, User owner, Vehicule vehicule,String ville) {
+    public Offre(int id, String titre, String description, String operation, float prix, User owner, Vehicule vehicule,String ville) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -74,38 +71,34 @@ public class Offre {
         this.prix = prix;
         this.user = owner;
         this.vehicule = vehicule;
-        this.imageData = imageData;
         this.ville = ville;
 
     }
 
-    public Offre(String titre, String description, String operation, float prix, byte[] imageData, User owner, Vehicule vehicule,String ville) {
+    public Offre(String titre, String description, String operation, float prix, User owner, Vehicule vehicule,String ville) {
         this.titre = titre;
         this.description = description;
         this.operation = operation;
         this.prix = prix;
         this.user = owner;
         this.vehicule = vehicule;
-        this.imageData = imageData;
         this.ville = ville;
 
     }
-    public Offre(String titre, String operation,float prix,String description,byte[] imageData, User owner, Vehicule vehicule,String ville) {
+    public Offre(String titre, String operation,float prix,String description, User owner, Vehicule vehicule,String ville) {
         this.titre = titre;
         this.description = description;
         this.operation = operation;
         this.prix = prix;
         this.user = owner;
         this.vehicule = vehicule;
-        this.imageData = imageData;
         this.ville = ville;
 
     }
-    public Offre(String titre, String description, float prix, byte[] imageData,String ville ){
+    public Offre(String titre, String description, float prix,String ville ){
         this.titre = titre;
         this.description = description;
         this.prix = prix;
-        this.imageData = imageData;
         this.ville = ville;
     }
 
@@ -221,13 +214,6 @@ public class Offre {
                 '}';
     }
 
-    public byte[] getImageData() {
-        return imageData;
-    }
-
-    public void setImageData(byte[] imageData) {
-        this.imageData = imageData;
-    }
 
     public String getVille() {
         return ville;

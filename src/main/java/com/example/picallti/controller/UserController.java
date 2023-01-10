@@ -32,11 +32,7 @@ public class UserController {
 
     }
 
-    /*@PostMapping(value = "addImage")
-    public void uploadImage(@RequestParam("image")MultipartFile file,
-                            @RequestParam("user")User user ) throws IOException {
-        userService.updateWithImage(user, file);
-    }*/
+
 
     // Setting the pp of the user :
     @GetMapping(value = "downloadImage")

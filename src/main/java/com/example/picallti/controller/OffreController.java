@@ -35,18 +35,6 @@ public class OffreController {
         offreService.addOffre(offre);
     }
 
-    // Setting the pp of the user :
-    @GetMapping(value = "downloadImage")
-    public ResponseEntity<?> downloadImage(@RequestParam int id){
-        Optional<Offre> offredb = offreService.getOffreById(id);
-        if (offredb.isPresent()){
-            byte[] imageData = offreService.downloadImage(offredb.get().getImageData());
-            return  ResponseEntity.status(HttpStatus.OK)
-                    .contentType(MediaType.valueOf("image/png"))
-                    .body(imageData);
-        }
-        return null;
-    }
 
     @RequestMapping("getAll")
     public Collection<Offre> getAllOffers(){
@@ -70,17 +58,6 @@ public class OffreController {
         return offre;
     }
 
-    @RequestMapping(value = "update/{id}",method = RequestMethod.POST)
-    public Offre updateOffreWithImage(@PathVariable int id,
-                                      @RequestParam("image") MultipartFile file) throws IOException {
-        if (offreService.getOffreById(id).isPresent()){
-            Offre offredb = offreService.getOffreById(id).get();
-           offreService.updateWithImage(offredb, file);
-            return offredb;
-        }else{
-            throw new RuntimeException("Offre not found");
-        }
-    }
 
     @RequestMapping("remove/{id}")
     public void removeOffreById(@PathVariable int id)

@@ -44,14 +44,12 @@ class OffreServiceTest {
     @Test
     void testAddOffre() {
         when(offreRepository.save((Offre) any())).thenReturn(
-                new Offre("Titre", "The characteristics of someone or something", 10.0f, "https://example.org/example", "rabat"));
-        Offre offre = new Offre("Titre", "The characteristics of someone or something", 10.0f,
-                "https://example.org/example", "rabat");
+                new Offre("Titre", "The characteristics of someone or something", 10.0f, "rabat"));
+        Offre offre = new Offre("Titre", "The characteristics of someone or something", 10.0f, "rabat");
 
         offreService.addOffre(offre);
         verify(offreRepository).save((Offre) any());
         assertEquals("The characteristics of someone or something", offre.getDescription());
-        assertEquals("https://example.org/example", offre.getUrl());
         assertEquals("Titre", offre.getTitre());
         assertEquals(10.0f, offre.getPrix());
         assertTrue(offreService.getAllOffers().isEmpty());
@@ -75,8 +73,7 @@ class OffreServiceTest {
      */
     @Test
     void testGetOffreById() {
-        Offre offre = new Offre("Titre", "The characteristics of someone or something", 10.0f,
-                "https://example.org/example", "rabat");
+        Offre offre = new Offre("Titre", "The characteristics of someone or something", 10.0f, "rabat");
 
         when(offreRepository.findById((Integer) any())).thenReturn(Optional.of(offre));
         assertSame(offre, offreService.getOffreById(1));
@@ -91,7 +88,7 @@ class OffreServiceTest {
         ArrayList<Offre> offreList = new ArrayList<>();
         when(offreRepository.findOffresByUser((User) any())).thenReturn(offreList);
         when(userRepository.findById((Integer) any())).thenReturn(
-                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou", "img", "Role")));
+                Optional.of(new User("Nom", "Prenom", "Genre", "jane.doe@example.org", 1, "iloveyou")));
         Collection<Offre> actualOffersByUser = offreService.getOffersByUser(1);
         assertSame(offreList, actualOffersByUser);
         assertTrue(actualOffersByUser.isEmpty());
@@ -105,11 +102,11 @@ class OffreServiceTest {
     @Test
     void testUpdateOffre() {
         when(offreRepository.save((Offre) any())).thenReturn(
-                new Offre("Titre", "The characteristics of someone or something", 10.0f, "https://example.org/example", "rabat"));
+                new Offre("Titre", "The characteristics of someone or something", 10.0f, "rabat"));
         when(offreRepository.findById((Integer) any())).thenReturn(Optional
-                .of(new Offre("Titre", "The characteristics of someone or something", 10.0f, "https://example.org/example", "rabat")));
+                .of(new Offre("Titre", "The characteristics of someone or something", 10.0f, "rabat")));
         offreService.updateOffre(
-                new Offre("Titre", "The characteristics of someone or something", 10.0f, "https://example.org/example", "rabat"));
+                new Offre("Titre", "The characteristics of someone or something", 10.0f, "rabat"));
         verify(offreRepository).save((Offre) any());
         verify(offreRepository).findById((Integer) any());
     }

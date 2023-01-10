@@ -62,10 +62,6 @@ public class OffreService {
 
     }
 
-    public byte[] downloadImage(byte[] imageData){
-        byte[] images = ImageDataUtil.decompressImage(imageData);
-        return images;
-    }
 
     public void updateOffre(Offre offre) {
         Offre offre1 = offreRepository.findById(offre.getId()).get();
@@ -75,7 +71,6 @@ public class OffreService {
             offre1.setOperation(offre.getOperation());
             offre1.setPrix(offre.getPrix());
             offre1.setTime(offre.getTime());
-            offre1.setImageData(offre.getImageData());
             offre1.setUser(offre.getUser());
             offre1.setlocaLDate(offre.getlocaLDate());
             offre1.setTitre(offre.getTitre());
@@ -84,21 +79,6 @@ public class OffreService {
         }
     }
 
-    public void updateWithImage(Offre offre, MultipartFile file) throws IOException {
-        Offre offre1 = offreRepository.findById(offre.getId()).get();
-        if (offre1 != null) {
-            offre1.setDescription(offre.getDescription());
-            offre1.setOperation(offre.getOperation());
-            offre1.setPrix(offre.getPrix());
-            offre1.setTime(offre.getTime());
-            offre1.setImageData(ImageDataUtil.compressImage(file.getBytes()));
-            offre1.setUser(offre.getUser());
-            offre1.setlocaLDate(offre.getlocaLDate());
-            offre1.setTitre(offre.getTitre());
-            offre1.setVehicule(offre.getVehicule());
-            offreRepository.save(offre1);
-        }
-    }
 
 //    public Collection<Offre> findByOfferLocate(String date) {
 //        return offreRepository.findByOfferLocate(date);
