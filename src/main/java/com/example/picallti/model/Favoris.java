@@ -12,6 +12,7 @@ public class Favoris {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false , nullable = false)
     private int id;
+
     @ManyToOne
     private User user;
     @ManyToOne
